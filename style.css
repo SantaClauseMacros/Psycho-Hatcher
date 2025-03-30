@@ -263,25 +263,41 @@
 
   /* Staff List Styles */
   .staff-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+    width: 100%;
+    overflow-x: auto;
   }
 
-  .staff-column {
-    flex: 1;
-    min-width: 250px;
+  .staff-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-radius: var(--border-radius);
+    overflow: hidden;
   }
 
-  .staff-list,
-  .timezone-list {
-    list-style: none;
+  .staff-table thead {
+    background-color: var(--primary-color);
+    color: white;
   }
 
-  .staff-list li,
-  .timezone-list li {
-    padding: 0.5rem 0;
+  .staff-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .staff-table td {
+    padding: 0.8rem 1rem;
     border-bottom: 1px solid #e0e0e0;
+  }
+
+  .staff-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .staff-table tbody tr:hover {
+    background-color: #f0f0f0;
   }
 
   .staff-name {
@@ -595,6 +611,90 @@
 
   .guide-card:hover::after {
     transform: scaleX(1);
+  }
+  
+  /* Guides Portal Styles */
+  .guides-page {
+    background-color: #f8f9fa;
+  }
+  
+  .guides-intro {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+  
+  .guides-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+  
+  .guides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .guides-page .guide-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #eaeaea;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+  
+  .guides-page .guide-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .guides-page .guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  }
+  
+  .guides-page .guide-card:hover::after {
+    transform: scaleX(1);
+  }
+  
+  .guide-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+  }
+  
+  .guides-page .guide-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #333;
+  }
+  
+  .guides-page .guide-card p {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    color: #666;
+    flex-grow: 1;
+  }
+  
+  .guides-page .guide-card .btn {
+    align-self: center;
+    margin-top: auto;
   }
 
   .guide-content {
