@@ -1038,12 +1038,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Store the suggestion in local storage temporarily
+      // Get staff name (fake a random name if not available)
+      const staffNames = ['Dennis', 'Notsus', 'Watermelon', 'Crazy', 'Adelnon', 'Santa', 'Reversals', 'makoralen', 'waktool', 'Creeper'];
+      const staffName = sessionStorage.getItem('loggedInUser') || staffNames[Math.floor(Math.random() * staffNames.length)];
+      
+      // Store the suggestion in local storage with staff name
       const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
       suggestions.push({
         text: suggestionText.value,
         date: new Date().toISOString(),
-        status: 'pending'
+        status: 'pending',
+        author: staffName
       });
       localStorage.setItem('staffSuggestions', JSON.stringify(suggestions));
       
@@ -1051,17 +1056,12 @@ document.addEventListener('DOMContentLoaded', function() {
       showNotification('Suggestion submitted successfully!', 'success');
       suggestionText.value = '';
       
-      // Display the status
-      if (suggestionStatus) {
-        suggestionStatus.innerHTML = '<p class="success-message">Your suggestion has been submitted and will be reviewed by administrators.</p>';
-        setTimeout(() => {
-          suggestionStatus.innerHTML = '';
-        }, 5000);
-      }
+      // Immediately display updated suggestions
+      displaySavedSuggestions();
     });
   }
   
-  // Display saved suggestions if any
+  // Always display saved suggestions
   displaySavedSuggestions();
 });
 
@@ -1071,6 +1071,14 @@ function displaySavedSuggestions() {
   const statusDiv = document.getElementById('suggestion-status');
   
   if (statusDiv) {
+    // Create header for the suggestions section
+    const header = document.createElement('div');
+    header.className = 'suggestions-header';
+    header.innerHTML = `
+      <h3><i class="fas fa-comments"></i> Staff Suggestions Board</h3>
+      <p>View and search all staff suggestions. All suggestions are visible to everyone.</p>
+    `;
+    
     // Create a search box for suggestions
     const searchBox = document.createElement('div');
     searchBox.className = 'suggestion-search';
@@ -1078,13 +1086,15 @@ function displaySavedSuggestions() {
       <input type="text" id="suggestion-search" placeholder="Search suggestions..." class="suggestion-search-input">
       <button id="export-suggestions" class="btn btn-sm"><i class="fas fa-download"></i> Export All</button>
     `;
+    
     statusDiv.innerHTML = ''; // Clear previous content
+    statusDiv.appendChild(header);
     statusDiv.appendChild(searchBox);
     
     // Add suggestions count indicator
     const suggestionsCount = document.createElement('div');
     suggestionsCount.className = 'suggestions-count';
-    suggestionsCount.innerHTML = `<h4>All Suggestions (${suggestions.length})</h4>`;
+    suggestionsCount.innerHTML = `<h4>All Staff Suggestions (${suggestions.length})</h4>`;
     statusDiv.appendChild(suggestionsCount);
     
     // Create container for suggestions
@@ -1097,15 +1107,19 @@ function displaySavedSuggestions() {
       const list = document.createElement('ul');
       list.className = 'suggestions-list';
       
-      // Show all suggestions, not just the last 3
-      suggestions.forEach((suggestion, index) => {
+      // Show all suggestions 
+      suggestions.reverse().forEach((suggestion, index) => {
         const listItem = document.createElement('li');
         listItem.setAttribute('data-suggestion-id', index);
         listItem.innerHTML = `
-          <p>${suggestion.text}</p>
-          <div class="suggestion-meta">
+          <div class="suggestion-header">
+            <span class="suggestion-author">${suggestion.author || 'Anonymous'}</span>
             <small>Submitted on ${new Date(suggestion.date).toLocaleString()}</small>
+          </div>
+          <p class="suggestion-content">${suggestion.text}</p>
+          <div class="suggestion-meta">
             <span class="suggestion-status ${suggestion.status}">${suggestion.status}</span>
+            <button class="btn-vote upvote" data-id="${index}"><i class="fas fa-thumbs-up"></i> <span class="vote-count">${suggestion.upvotes || 0}</span></button>
           </div>
         `;
         list.appendChild(listItem);
@@ -1121,8 +1135,9 @@ function displaySavedSuggestions() {
           const suggestionItems = document.querySelectorAll('.suggestions-list li');
           
           suggestionItems.forEach(item => {
-            const suggestionText = item.querySelector('p').textContent.toLowerCase();
-            if (suggestionText.includes(searchTerm)) {
+            const suggestionText = item.querySelector('.suggestion-content').textContent.toLowerCase();
+            const authorText = item.querySelector('.suggestion-author').textContent.toLowerCase();
+            if (suggestionText.includes(searchTerm) || authorText.includes(searchTerm)) {
               item.style.display = 'block';
             } else {
               item.style.display = 'none';
@@ -1130,6 +1145,23 @@ function displaySavedSuggestions() {
           });
         });
       }
+      
+      // Add upvote functionality
+      document.querySelectorAll('.btn-vote').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = this.getAttribute('data-id');
+          const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
+          const suggestion = suggestions[suggestions.length - 1 - id]; // Account for reversed display
+          
+          if (!suggestion.upvotes) suggestion.upvotes = 0;
+          suggestion.upvotes++;
+          
+          this.querySelector('.vote-count').textContent = suggestion.upvotes;
+          localStorage.setItem('staffSuggestions', JSON.stringify(suggestions));
+          
+          showNotification('Vote recorded!', 'success');
+        });
+      });
       
       // Add export functionality
       const exportBtn = document.getElementById('export-suggestions');
@@ -1140,9 +1172,13 @@ function displaySavedSuggestions() {
       }
     } else {
       // No suggestions message
-      const noSuggestions = document.createElement('p');
+      const noSuggestions = document.createElement('div');
       noSuggestions.className = 'no-suggestions';
-      noSuggestions.textContent = 'No suggestions have been submitted yet.';
+      noSuggestions.innerHTML = `
+        <i class="fas fa-comment-slash" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+        <p>No suggestions have been submitted yet.</p>
+        <p>Be the first to suggest an improvement!</p>
+      `;
       suggestionsContainer.appendChild(noSuggestions);
     }
   }
