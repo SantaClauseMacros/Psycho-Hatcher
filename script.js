@@ -1,4 +1,59 @@
 
+// Mobile navigation enhancement
+document.addEventListener('DOMContentLoaded', function() {
+  // Add mobile menu toggle button
+  const nav = document.querySelector('nav');
+  const mobileMenuBtn = document.createElement('button');
+  mobileMenuBtn.className = 'mobile-menu-toggle';
+  mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i> Menu';
+  
+  if (window.innerWidth <= 768) {
+    // Insert before the navigation
+    document.body.insertBefore(mobileMenuBtn, nav);
+    
+    // Hide nav by default on mobile
+    nav.style.display = 'none';
+    
+    // Toggle navigation visibility on mobile
+    mobileMenuBtn.addEventListener('click', function() {
+      if (nav.style.display === 'none') {
+        nav.style.display = 'block';
+        mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i> Close';
+      } else {
+        nav.style.display = 'none';
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i> Menu';
+      }
+    });
+    
+    // Hide menu when clicking on a nav item
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        nav.style.display = 'none';
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i> Menu';
+      });
+    });
+  }
+  
+  // Add smooth scrolling to navigation links
+  document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
+  });
+});
+
+
 // Site Security Enhancements
 document.addEventListener('contextmenu', function(e) {
   if (sessionStorage.getItem('staffLoggedIn') !== 'true') {
