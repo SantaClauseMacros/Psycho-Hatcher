@@ -481,14 +481,24 @@
     list-style: none;
     padding: 0;
     margin: 10px 0;
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
   }
   
   .suggestions-list li {
     background-color: #fff;
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 10px;
     border-radius: 4px;
     border-left: 3px solid var(--primary-color);
+    transition: all 0.3s ease;
+  }
+  
+  .suggestions-list li:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
   }
   
   .suggestion-status {
@@ -497,6 +507,58 @@
     border-radius: 12px;
     font-size: 0.8rem;
     margin-top: 5px;
+  }
+  
+  .suggestion-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 0.9rem;
+  }
+  
+  .suggestion-search {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .suggestion-search-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  }
+  
+  .suggestion-search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(237, 31, 39, 0.1);
+  }
+  
+  .btn-sm {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .suggestions-container {
+    position: relative;
+  }
+  
+  .suggestions-count {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .no-suggestions {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
   }
   
   .suggestion-status.pending {
