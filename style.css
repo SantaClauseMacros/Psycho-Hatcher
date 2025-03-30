@@ -907,6 +907,128 @@ main section.section-visible {
   overflow: hidden;
 }
 
+/* Suggestion Section Styles */
+.suggestion-box {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border-left: 4px solid #4caf50;
+}
+
+.suggestion-form {
+  margin-top: 1rem;
+}
+
+.suggestion-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  resize: vertical;
+  font-family: inherit;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s;
+}
+
+.suggestion-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(237, 31, 39, 0.1);
+}
+
+#suggestion-status {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  display: none;
+}
+
+#suggestion-status.success {
+  display: block;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-left: 4px solid #4caf50;
+}
+
+#suggestion-status.error {
+  display: block;
+  background-color: #ffebee;
+  color: #c62828;
+  border-left: 4px solid #f44336;
+}
+
+/* Ticket Templates Styles */
+.templates-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.template-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.template-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.template-card h3 {
+  background-color: var(--primary-light);
+  color: white;
+  padding: 0.8rem 1rem;
+  margin: 0;
+}
+
+.template-content {
+  padding: 1rem;
+}
+
+.template-content p {
+  margin-bottom: 0.8rem;
+}
+
+.copy-template {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 768px) {
+  .templates-container {
+    grid-template-columns: 1fr;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .guide-card, .template-card {
+    min-width: 100%;
+  }
+  
+  nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.5rem 0;
+  }
+  
+  nav ul {
+    display: inline-flex;
+    width: max-content;
+  }
+  
+  nav a {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* Logo Switcher Styles */
 .logo-switcher-overlay {
   position: fixed;
@@ -953,9 +1075,8 @@ main section.section-visible {
 
 .logo-options {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
+  flex-direction: column;
+  gap: 15px;
   margin: 1.5rem 0;
 }
 
@@ -965,23 +1086,24 @@ main section.section-visible {
   border-radius: var(--border-radius);
   border: 2px solid transparent;
   transition: all 0.3s;
-  width: 30%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   overflow: hidden;
+  background-color: #f9f9f9;
 }
 
 .logo-option:hover {
   border-color: var(--primary-light);
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .logo-option img {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   margin-bottom: 10px;
   transition: transform 0.3s ease;
@@ -996,6 +1118,13 @@ main section.section-visible {
   color: var(--primary-dark);
   font-size: 1.1rem;
   margin-bottom: 5px;
+}
+
+.color-preview {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .color-preview {
