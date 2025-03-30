@@ -1081,6 +1081,13 @@ function displaySavedSuggestions() {
     
     statusDiv.appendChild(list);
   }
+  
+  // Check deployment environment
+  const isNetlify = window.location.hostname.includes('netlify.app');
+  if (isNetlify) {
+    console.log('Running on Netlify deployment');
+    // Add Netlify-specific functionality if needed
+  }
 }
 
   notificationElement
