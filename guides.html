@@ -6,157 +6,146 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ED1F27">
-    <title>Psycho Hatcher Staff Guides</title>
+    <title>Psycho Hatcher Guides Portal</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link href="icons.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body>
+<body class="guides-page">
     <header>
         <div class="logo-container">
             <img id="logo-preview" src="PsychoHatcher.png" alt="Psycho Hatcher Logo">
-            <div class="logo-upload">
-                <label for="logo-upload" class="upload-btn">
-                    <i class="fas fa-upload"></i> Upload Logo
-                </label>
-                <input type="file" id="logo-upload" accept="image/*">
-            </div>
         </div>
-        <h1>Psycho Hatcher Staff Guides</h1>
+        <h1>Psycho Hatcher Troubleshooting Guides</h1>
         <div class="header-actions">
             <a href="index.html" class="btn btn-outline">
-                <i class="fas fa-home"></i> Back to Portal
+                <i class="fas fa-home"></i> Back to Staff Portal
             </a>
+            <button id="logout-btn" class="btn btn-outline">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </div>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Main Portal</a></li>
-            <li><a href="guides.html" class="active">Guides</a></li>
-            <li><a href="guide-rankup.html">Rankup Macro</a></li>
-            <li><a href="guide-digging.html">Advanced Digging</a></li>
-            <li><a href="guide-clan.html">Clan Mode</a></li>
-            <li><a href="guide-treehouse.html">Treehouse Mode</a></li>
-            <li><a href="guide-fishing.html">Deep Fishing</a></li>
-            <li><a href="guide-garden.html">Garden Mode</a></li>
-            <li><a href="guide-auto-farm.html">Auto-Farm Mode</a></li>
-            <li><a href="guide-egg-opening.html">Egg Opening</a></li>
-            <li><a href="guide-enchant.html">Enchant Mode</a></li>
-            <li><a href="guide-fusepets.html">Fuse Pets Mode</a></li>
-            <li><a href="guide-levelup.html">Level Up Mode</a></li>
-            <li><a href="guide-common.html">Common Issues</a></li>
-        </ul>
-    </nav>
+    <div class="guides-intro">
+        <div class="alert-box info">
+            <h3><i class="fas fa-info-circle"></i> Welcome to the Guides Portal</h3>
+            <p>This dedicated portal contains comprehensive troubleshooting guides for all Psycho Hatcher macros and modes.</p>
+            <p>Use these guides when assisting users with common issues and functionality questions.</p>
+        </div>
+    </div>
 
-    <main>
-        <section class="section-card">
-            <h2><i class="fas fa-wrench"></i> Troubleshooting Guides</h2>
-            <div class="alert-box">
-                <h3><i class="fas fa-info-circle"></i> Guide Information</h3>
-                <p>Select a guide below to view detailed troubleshooting steps for each Psycho Hatcher macro.</p>
-                <p>Each guide opens in its own dedicated page for easier reference and readability.</p>
+    <main class="guides-main">
+        <div class="guides-grid">
+            <div class="guide-card" id="rankup-macro">
+                <div class="guide-icon"><i class="fas fa-arrow-up"></i></div>
+                <h3>Rankup Macro</h3>
+                <p>Complete guide for the Rankup Macro functionality and troubleshooting steps.</p>
+                <a href="guide-rankup.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
             </div>
 
-            <div class="guides-container">
-                <div class="guide-card" id="rankup-macro">
-                    <h3>Rankup Macro Troubleshooting</h3>
-                    <p>Guide for resolving issues with the Rankup Macro.</p>
-                    <a href="guide-rankup.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-
-                <div class="guide-card" id="advanced-digging">
-                    <h3>Advanced Digging Mode</h3>
-                    <p>Guide for resolving issues with Advanced Digging Mode.</p>
-                    <a href="guide-digging.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-
-                <div class="guide-card" id="clan-mode">
-                    <h3>Clan Mode</h3>
-                    <p>Guide for troubleshooting Clan Mode Macro issues.</p>
-                    <a href="guide-clan.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-
-                <div class="guide-card" id="garden-mode">
-                    <h3>Garden Mode</h3>
-                    <p>Guide for troubleshooting Garden Mode Macro issues.</p>
-                    <a href="guide-garden.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-
-                <div class="guide-card" id="treehouse-mode">
-                    <h3>Treehouse Mode</h3>
-                    <p>Guide for resolving issues with Treehouse Mode.</p>
-                    <a href="guide-treehouse.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-
-                <div class="guide-card" id="deepfishing-mode">
-                    <h3>Deep Fishing Mode</h3>
-                    <p>Guide for troubleshooting Deep Fishing Mode issues.</p>
-                    <a href="guide-fishing.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-                
-                <div class="guide-card" id="auto-farm-mode">
-                    <h3>Auto-Farm Mode</h3>
-                    <p>Guide for troubleshooting Auto-Farm Mode issues.</p>
-                    <a href="guide-auto-farm.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-                
-                <div class="guide-card" id="egg-opening-mode">
-                    <h3>Egg Opening Mode</h3>
-                    <p>Guide for resolving issues with the Egg Opening Macro.</p>
-                    <a href="guide-egg-opening.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-                
-                <div class="guide-card" id="enchant-mode">
-                    <h3>Enchant Mode</h3>
-                    <p>Guide for troubleshooting Enchant Mode Macro issues.</p>
-                    <a href="guide-enchant.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-                
-                <div class="guide-card" id="fusepets-mode">
-                    <h3>Fuse Pets Mode</h3>
-                    <p>Guide for troubleshooting Fuse Pets Mode issues.</p>
-                    <a href="guide-fusepets.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-                
-                <div class="guide-card" id="levelup-mode">
-                    <h3>Level Up Mode</h3>
-                    <p>Guide for troubleshooting Alt Level Up Mode issues.</p>
-                    <a href="guide-levelup.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
-                
-                <div class="guide-card" id="common-issues">
-                    <h3>Common Issues</h3>
-                    <p>General troubleshooting guide for common issues across all modes.</p>
-                    <a href="guide-common.html" class="btn">
-                        <i class="fas fa-book-open"></i> View Guide
-                    </a>
-                </div>
+            <div class="guide-card" id="advanced-digging">
+                <div class="guide-icon"><i class="fas fa-shovel"></i></div>
+                <h3>Advanced Digging</h3>
+                <p>Guide for resolving issues with Advanced Digging Mode.</p>
+                <a href="guide-digging.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
             </div>
-        </section>
+
+            <div class="guide-card" id="clan-mode">
+                <div class="guide-icon"><i class="fas fa-users"></i></div>
+                <h3>Clan Mode</h3>
+                <p>Guide for troubleshooting Clan Mode Macro issues.</p>
+                <a href="guide-clan.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+
+            <div class="guide-card" id="garden-mode">
+                <div class="guide-icon"><i class="fas fa-leaf"></i></div>
+                <h3>Garden Mode</h3>
+                <p>Guide for troubleshooting Garden Mode Macro issues.</p>
+                <a href="guide-garden.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+
+            <div class="guide-card" id="treehouse-mode">
+                <div class="guide-icon"><i class="fas fa-tree"></i></div>
+                <h3>Treehouse Mode</h3>
+                <p>Guide for resolving issues with Treehouse Mode.</p>
+                <a href="guide-treehouse.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+
+            <div class="guide-card" id="deepfishing-mode">
+                <div class="guide-icon"><i class="fas fa-fish"></i></div>
+                <h3>Deep Fishing Mode</h3>
+                <p>Guide for troubleshooting Deep Fishing Mode issues.</p>
+                <a href="guide-fishing.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+            
+            <div class="guide-card" id="auto-farm-mode">
+                <div class="guide-icon"><i class="fas fa-robot"></i></div>
+                <h3>Auto-Farm Mode</h3>
+                <p>Guide for troubleshooting Auto-Farm Mode issues.</p>
+                <a href="guide-auto-farm.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+            
+            <div class="guide-card" id="egg-opening-mode">
+                <div class="guide-icon"><i class="fas fa-egg"></i></div>
+                <h3>Egg Opening Mode</h3>
+                <p>Guide for resolving issues with the Egg Opening Macro.</p>
+                <a href="guide-egg-opening.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+            
+            <div class="guide-card" id="enchant-mode">
+                <div class="guide-icon"><i class="fas fa-magic"></i></div>
+                <h3>Enchant Mode</h3>
+                <p>Guide for troubleshooting Enchant Mode Macro issues.</p>
+                <a href="guide-enchant.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+            
+            <div class="guide-card" id="fusepets-mode">
+                <div class="guide-icon"><i class="fas fa-paw"></i></div>
+                <h3>Fuse Pets Mode</h3>
+                <p>Guide for troubleshooting Fuse Pets Mode issues.</p>
+                <a href="guide-fusepets.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+            
+            <div class="guide-card" id="levelup-mode">
+                <div class="guide-icon"><i class="fas fa-level-up-alt"></i></div>
+                <h3>Level Up Mode</h3>
+                <p>Guide for troubleshooting Alt Level Up Mode issues.</p>
+                <a href="guide-levelup.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+            
+            <div class="guide-card" id="common-issues">
+                <div class="guide-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <h3>Common Issues</h3>
+                <p>General troubleshooting guide for common issues across all modes.</p>
+                <a href="guide-common.html" class="btn">
+                    <i class="fas fa-book-open"></i> View Guide
+                </a>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -167,6 +156,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="login.js"></script>
 </body>
 
 </html>
