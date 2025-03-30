@@ -888,74 +888,107 @@ This guide will help you identify and resolve common and uncommon issues related
 Follow this checklist to ensure the troubleshooting process is thorough and effective!`,
 };
 
-// Handle Guide Toggle
-guideButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    const guideType = this.getAttribute("data-guide");
+// Handle Guide Display with improved reliability
+document.addEventListener("DOMContentLoaded", function() {
+  const guideButtons = document.querySelectorAll(".toggle-guide");
+  
+  // First, make sure all guide contents are properly initialized
+  guideButtons.forEach(button => {
+    const guideType = button.getAttribute("data-guide");
     const contentElement = document.getElementById(`${guideType}-content`);
-
+    
     if (!contentElement) {
       console.error(`Guide content element for ${guideType} not found!`);
       return;
     }
-
-    // Toggle active class and visibility
-    if (contentElement.classList.contains("active")) {
-      // Currently visible, so hide it
-      contentElement.style.display = "none";
-      contentElement.classList.remove("active");
-      this.textContent = "View Guide";
-    } else {
-      // Currently hidden, so show it
-      const markdownContent = guideContents[guideType];
-      if (markdownContent) {
-        contentElement.innerHTML = convertMarkdownToHTML(markdownContent);
-        contentElement.style.display = "block";
-        contentElement.classList.add("active");
-        this.textContent = "Hide Guide";
-      } else {
-        contentElement.innerHTML = "<p>Guide content not available.</p>";
-        contentElement.style.display = "block";
-        contentElement.classList.add("active");
-        this.textContent = "Hide Guide";
+    
+    // Initialize all content areas as hidden
+    contentElement.style.display = "none";
+    contentElement.classList.remove("active");
+    button.textContent = "View Guide";
+  });
+  
+  // Add click handlers with improved stability
+  guideButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      const guideType = this.getAttribute("data-guide");
+      const contentElement = document.getElementById(`${guideType}-content`);
+      
+      if (!contentElement) {
+        console.error(`Guide content element for ${guideType} not found!`);
+        return;
       }
-    }
+      
+      // Toggle the guide visibility
+      if (contentElement.classList.contains("active")) {
+        // Hide the guide
+        contentElement.style.maxHeight = "0";
+        setTimeout(() => {
+          contentElement.style.display = "none";
+          contentElement.classList.remove("active");
+          this.textContent = "View Guide";
+        }, 300);
+      } else {
+        // Show the guide - pre-render the content first
+        const markdownContent = guideContents[guideType];
+        
+        if (!markdownContent) {
+          contentElement.innerHTML = "<p>Guide content not available.</p>";
+        } else {
+          // Use the improved HTML converter
+          contentElement.innerHTML = convertMarkdownToHTML(markdownContent);
+        }
+        
+        // Make visible with animation
+        contentElement.style.display = "block";
+        // Trigger reflow
+        contentElement.offsetHeight;
+        contentElement.classList.add("active");
+        contentElement.style.maxHeight = "2000px"; // Large enough for content
+        this.textContent = "Hide Guide";
+        
+        // Log success for debugging
+        console.log(`Guide ${guideType} displayed successfully`);
+        
+        // Scroll into view with smooth behavior
+        setTimeout(() => {
+          contentElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    });
   });
 });
 
-// Initialize all guide content areas
-document.addEventListener("DOMContentLoaded", function() {
-  guideButtons.forEach((button) => {
-    const guideType = button.getAttribute("data-guide");
-    const contentElement = document.getElementById(`${guideType}-content`);
-    if (contentElement) {
-      contentElement.style.display = "none";
-    }
-  });
-});
-
-// Simple Markdown to HTML converter
+// Improved Markdown to HTML converter with better handling
 function convertMarkdownToHTML(markdown) {
-  let html = markdown;
+  if (!markdown || typeof markdown !== 'string') {
+    console.error('Invalid markdown content:', markdown);
+    return '<p>Error: Could not load guide content.</p>';
+  }
+  
+  // Create a working copy of the markdown
+  let html = markdown.trim();
 
-  // Headers
+  // Process in order of specificity to avoid nested replacements
+  
+  // Headers (specific to asterisks first)
   html = html.replace(/### \*\*(.*?)\*\*/g, "<h3>$1</h3>");
   html = html.replace(/### (.*?)$/gm, "<h3>$1</h3>");
 
-  // Bold
+  // Bold text
   html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 
-  // Italic
+  // Italic text
   html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
 
-  // Lists
-  html = html.replace(
-    /- \[ \] (.*?)$/gm,
-    '<div class="checklist-item"><input type="checkbox"> $1</div>',
-  );
+  // Checkbox lists (must come before regular lists)
+  html = html.replace(/- \[ \] (.*?)$/gm, 
+    '<div class="checklist-item"><input type="checkbox"> $1</div>');
+
+  // Regular lists
   html = html.replace(/- (.*?)$/gm, "<li>$1</li>");
 
-  // Line breaks and paragraphs
+  // Handle paragraph breaks
   html = html.replace(/\n\n/g, "</p><p>");
 
   // Horizontal rules
@@ -964,15 +997,24 @@ function convertMarkdownToHTML(markdown) {
   // Code blocks
   html = html.replace(/`(.*?)`/g, "<code>$1</code>");
 
-  // Ensure proper paragraph wrapping
-  html = "<p>" + html + "</p>";
-  html = html.replace(/<p>\s*<h/g, "<h");
-  html = html.replace(/<\/h\d>\s*<\/p>/g, "</h3>");
+  // Ensure proper HTML structure with paragraphs
+  html = "<div class='guide-content-inner'><p>" + html + "</p></div>";
+  
+  // Clean up any structural issues
+  html = html.replace(/<p>\s*<h3/g, "<h3");
+  html = html.replace(/<\/h3>\s*<\/p>/g, "</h3>");
   html = html.replace(/<p>\s*<hr>\s*<\/p>/g, "<hr>");
+  
+  // Fix list formatting
   html = html.replace(/<p>\s*<li>/g, "<ul><li>");
   html = html.replace(/<\/li>\s*<\/p>/g, "</li></ul>");
   html = html.replace(/<\/li>\s*<li>/g, "</li><li>");
-
+  
+  // Add debugging information
+  html += `<div class="guide-timestamp" style="font-size: 0.7rem; margin-top: 20px; color: #999;">
+    Guide loaded at: ${new Date().toLocaleString()}
+  </div>`;
+  
   return html;
 }
 
