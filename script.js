@@ -894,8 +894,13 @@ guideButtons.forEach((button) => {
     const guideType = this.getAttribute("data-guide");
     const contentElement = document.getElementById(`${guideType}-content`);
 
+    if (!contentElement) {
+      console.error(`Guide content element for ${guideType} not found!`);
+      return;
+    }
+
     // Toggle active class and visibility
-    if (contentElement.style.display === "block") {
+    if (contentElement.classList.contains("active")) {
       // Currently visible, so hide it
       contentElement.style.display = "none";
       contentElement.classList.remove("active");
@@ -916,15 +921,17 @@ guideButtons.forEach((button) => {
       }
     }
   });
+});
 
-  // Pre-load content but don't display it yet
-  const guideType = button.getAttribute("data-guide");
-  const contentElement = document.getElementById(`${guideType}-content`);
-  
-  // Ensure content area exists and is properly initialized
-  if (contentElement) {
-    contentElement.style.display = "none";
-  }
+// Initialize all guide content areas
+document.addEventListener("DOMContentLoaded", function() {
+  guideButtons.forEach((button) => {
+    const guideType = button.getAttribute("data-guide");
+    const contentElement = document.getElementById(`${guideType}-content`);
+    if (contentElement) {
+      contentElement.style.display = "none";
+    }
+  });
 });
 
 // Simple Markdown to HTML converter
@@ -1063,22 +1070,81 @@ function displaySavedSuggestions() {
   const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
   const statusDiv = document.getElementById('suggestion-status');
   
-  if (statusDiv && suggestions.length > 0) {
-    statusDiv.innerHTML = '<h4>Your Recent Suggestions:</h4>';
-    const list = document.createElement('ul');
-    list.className = 'suggestions-list';
+  if (statusDiv) {
+    // Create a search box for suggestions
+    const searchBox = document.createElement('div');
+    searchBox.className = 'suggestion-search';
+    searchBox.innerHTML = `
+      <input type="text" id="suggestion-search" placeholder="Search suggestions..." class="suggestion-search-input">
+      <button id="export-suggestions" class="btn btn-sm"><i class="fas fa-download"></i> Export All</button>
+    `;
+    statusDiv.innerHTML = ''; // Clear previous content
+    statusDiv.appendChild(searchBox);
     
-    suggestions.slice(-3).forEach(suggestion => {
-      const listItem = document.createElement('li');
-      listItem.innerHTML = `
-        <p>${suggestion.text}</p>
-        <small>Submitted on ${new Date(suggestion.date).toLocaleString()}</small>
-        <span class="suggestion-status ${suggestion.status}">${suggestion.status}</span>
-      `;
-      list.appendChild(listItem);
-    });
+    // Add suggestions count indicator
+    const suggestionsCount = document.createElement('div');
+    suggestionsCount.className = 'suggestions-count';
+    suggestionsCount.innerHTML = `<h4>All Suggestions (${suggestions.length})</h4>`;
+    statusDiv.appendChild(suggestionsCount);
     
-    statusDiv.appendChild(list);
+    // Create container for suggestions
+    const suggestionsContainer = document.createElement('div');
+    suggestionsContainer.className = 'suggestions-container';
+    statusDiv.appendChild(suggestionsContainer);
+    
+    if (suggestions.length > 0) {
+      // Create the list
+      const list = document.createElement('ul');
+      list.className = 'suggestions-list';
+      
+      // Show all suggestions, not just the last 3
+      suggestions.forEach((suggestion, index) => {
+        const listItem = document.createElement('li');
+        listItem.setAttribute('data-suggestion-id', index);
+        listItem.innerHTML = `
+          <p>${suggestion.text}</p>
+          <div class="suggestion-meta">
+            <small>Submitted on ${new Date(suggestion.date).toLocaleString()}</small>
+            <span class="suggestion-status ${suggestion.status}">${suggestion.status}</span>
+          </div>
+        `;
+        list.appendChild(listItem);
+      });
+      
+      suggestionsContainer.appendChild(list);
+      
+      // Add search functionality
+      const searchInput = document.getElementById('suggestion-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          const searchTerm = this.value.toLowerCase();
+          const suggestionItems = document.querySelectorAll('.suggestions-list li');
+          
+          suggestionItems.forEach(item => {
+            const suggestionText = item.querySelector('p').textContent.toLowerCase();
+            if (suggestionText.includes(searchTerm)) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      }
+      
+      // Add export functionality
+      const exportBtn = document.getElementById('export-suggestions');
+      if (exportBtn) {
+        exportBtn.addEventListener('click', function() {
+          exportAllSuggestions();
+        });
+      }
+    } else {
+      // No suggestions message
+      const noSuggestions = document.createElement('p');
+      noSuggestions.className = 'no-suggestions';
+      noSuggestions.textContent = 'No suggestions have been submitted yet.';
+      suggestionsContainer.appendChild(noSuggestions);
+    }
   }
   
   // Check deployment environment
@@ -1087,6 +1153,42 @@ function displaySavedSuggestions() {
     console.log('Running on Netlify deployment');
     // Add Netlify-specific functionality if needed
   }
+}
+
+// Function to export all suggestions
+function exportAllSuggestions() {
+  const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
+  if (suggestions.length === 0) {
+    showNotification('No suggestions to export', 'error');
+    return;
+  }
+  
+  // Format the suggestions as text
+  let exportText = "# Psycho Hatcher Staff Suggestions\n\n";
+  suggestions.forEach((suggestion, index) => {
+    exportText += `## Suggestion ${index + 1}\n`;
+    exportText += `**Date:** ${new Date(suggestion.date).toLocaleString()}\n`;
+    exportText += `**Status:** ${suggestion.status}\n\n`;
+    exportText += `${suggestion.text}\n\n`;
+    exportText += `---\n\n`;
+  });
+  
+  // Create a blob and download it
+  const blob = new Blob([exportText], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `psycho-hatcher-suggestions-${new Date().toISOString().split('T')[0]}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  
+  // Clean up
+  setTimeout(() => {
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 100);
+  
+  showNotification('Suggestions exported successfully!', 'success');
 }
 
   notificationElement
