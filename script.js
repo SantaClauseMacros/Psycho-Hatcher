@@ -643,6 +643,67 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// FAQ Dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        
+        question.addEventListener('click', function() {
+            answer.classList.toggle('active');
+            question.classList.toggle('active');
+            
+            // Change chevron icon direction
+            const icon = question.querySelector('i');
+            if (icon) {
+                if (answer.classList.contains('active')) {
+                    icon.classList.remove('fa-chevron-right');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-right');
+                }
+            }
+        });
+    });
+
+        // Create new FAQ structure
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'faq-question';
+        questionDiv.innerHTML = `
+            <input type="checkbox" ${checkbox ? checkbox.checked ? 'checked' : '' : ''}>
+            <i class="fas fa-chevron-right"></i>
+            <span>${question.textContent}</span>
+        `;
+
+        const answerDiv = document.createElement('div');
+        answerDiv.className = 'faq-answer';
+        answerDiv.innerHTML = description.replace(question.outerHTML, '');
+
+        item.appendChild(questionDiv);
+        item.appendChild(answerDiv);
+
+        // Add click event
+        questionDiv.addEventListener('click', () => {
+            const isExpanded = questionDiv.classList.contains('active');
+
+            // Close all other FAQs
+            document.querySelectorAll('.faq-question.active').forEach(q => {
+                if (q !== questionDiv) {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            questionDiv.classList.toggle('active');
+            answerDiv.classList.toggle('active');
+        });
+    });
+});
+
 // Initialize tooltips
 function initializeTooltips() {
   // Add hoverable class to existing tooltips
