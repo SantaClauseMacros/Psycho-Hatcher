@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function createLoginOverlay() {
+  // Reset login attempts on page load
+  sessionStorage.removeItem('loginAttempts');
+  
   // Create login overlay
   const loginOverlay = document.createElement('div');
   loginOverlay.className = 'login-overlay';
@@ -100,7 +103,7 @@ function createLoginOverlay() {
   attemptsInfo.className = 'attempts-info';
   attemptsInfo.id = 'attempts-info';
 
-  // Get current attempts
+  // Get current attempts (should be 0 now)
   const currentAttempts = parseInt(sessionStorage.getItem('loginAttempts') || '0');
   const maxAttempts = 3;
   const remainingAttempts = maxAttempts - currentAttempts;
@@ -128,13 +131,6 @@ function createLoginOverlay() {
       validateLogin();
     }
   });
-
-  // Check if already reached max attempts
-  if (currentAttempts >= maxAttempts) {
-    passwordInput.disabled = true;
-    loginButton.disabled = true;
-    errorMessage.textContent = 'Maximum attempts reached. Please reload the page.';
-  }
 
   // Additional security - prevent F12, Ctrl+Shift+I, Ctrl+Shift+J
   document.addEventListener('keydown', function(e) {
