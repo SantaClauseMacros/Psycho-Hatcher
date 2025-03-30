@@ -375,11 +375,13 @@ h3 {
   max-height: 0;
   overflow: hidden;
   transition: all 0.3s ease;
+  opacity:0;
 }
 
 .faq-answer.active {
   padding: 15px;
   max-height: 500px;
+  opacity: 1;
 }
 
 .guide-header {
@@ -1913,14 +1915,16 @@ footer {
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    transition: all 0.3s ease-out;
     background: white;
     padding: 0 15px;
+    opacity: 0;
 }
 
 .faq-answer.active {
     max-height: 500px;
     padding: 15px;
+    opacity: 1;
 }
 
 .checklist-item input[type="checkbox"] {
