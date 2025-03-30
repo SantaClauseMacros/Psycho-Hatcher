@@ -138,6 +138,9 @@ window.addEventListener("DOMContentLoaded", () => {
   if (sessionStorage.getItem("staffLoggedIn") === "true") {
     showNotification("Welcome back to the Staff Portal!", "info");
   }
+
+  // Initialize suggestion system
+  initializeSuggestionSystem();
 });
 
 // Function to switch logo throughout the site and update color theme
@@ -416,7 +419,7 @@ navLinks.forEach((link) => {
 // Add scroll animations to elements
 function initScrollAnimations() {
   const animatedElements = document.querySelectorAll('.section-card, .guide-card, .info-box, h2, h3');
-  
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -428,7 +431,7 @@ function initScrollAnimations() {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
   });
-  
+
   animatedElements.forEach(element => {
     element.classList.add('animate-ready');
     observer.observe(element);
@@ -438,14 +441,14 @@ function initScrollAnimations() {
 // Initialize scroll animations
 document.addEventListener('DOMContentLoaded', function() {
   initScrollAnimations();
-  
+
   // Add dark mode toggle
   const darkModeToggle = document.createElement('button');
   darkModeToggle.className = 'dark-mode-toggle';
   darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
   darkModeToggle.title = 'Toggle Dark Mode';
   document.body.appendChild(darkModeToggle);
-  
+
   darkModeToggle.addEventListener('click', function() {
     document.body.classList.toggle('dark-mode');
     if (document.body.classList.contains('dark-mode')) {
@@ -458,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
       localStorage.setItem('darkMode', 'disabled');
     }
   });
-  
+
   // Check for saved dark mode preference
   if (localStorage.getItem('darkMode') === 'enabled') {
     document.body.classList.add('dark-mode');
@@ -470,85 +473,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add typing animation to headers
 function initTypingEffect() {
   const headers = document.querySelectorAll('h1, h2');
-  
+
   headers.forEach((header, index) => {
     const text = header.textContent;
 
-// Add scroll progress bar
-document.addEventListener('DOMContentLoaded', function() {
-  // Create progress bar
-  const progressBar = document.createElement('div');
-  progressBar.className = 'scroll-progress';
-  document.body.appendChild(progressBar);
-  
-  // Update progress bar width on scroll
-  window.addEventListener('scroll', () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollProgress = (scrollTop / scrollHeight) * 100;
-    progressBar.style.width = scrollProgress + '%';
-    
-    // Show back to top button when scrolled down
-    const backToTopBtn = document.querySelector('.back-to-top');
-    if (scrollTop > 300) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  });
-  
-  // Add back to top button
-  const backToTopBtn = document.createElement('button');
-  backToTopBtn.className = 'back-to-top';
-  backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-  backToTopBtn.title = 'Back to top';
-  document.body.appendChild(backToTopBtn);
-  
-  // Scroll to top when button is clicked
-  backToTopBtn.addEventListener('click', function() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-});
-
-// Add interactive checklists for guide pages
-document.addEventListener('DOMContentLoaded', function() {
-  const guidePage = document.querySelector('.guide-content.active');
-  
-  if (guidePage) {
-    const checklistItems = guidePage.querySelectorAll('.checklist-item input[type="checkbox"]');
-    
-    checklistItems.forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        const parentItem = this.closest('.checklist-item');
-        
-        if (this.checked) {
-          parentItem.style.textDecoration = 'line-through';
-          parentItem.style.opacity = '0.7';
-        } else {
-          parentItem.style.textDecoration = 'none';
-          parentItem.style.opacity = '1';
-        }
-        
-        // Count checked items
-        const guide = this.closest('.guide-content');
-        const totalItems = guide.querySelectorAll('.checklist-item').length;
-        const checkedItems = guide.querySelectorAll('.checklist-item input[type="checkbox"]:checked').length;
-        
-        // If all items are checked, show success notification
-        if (checkedItems === totalItems) {
-          showNotification('All items checked! Issue should be resolved.', 'success');
-        }
-      });
-    });
-  }
-});
-
     header.innerHTML = '';
     header.style.visibility = 'visible';
-    
+
     setTimeout(() => {
       let i = 0;
       const typeInterval = setInterval(() => {
@@ -614,196 +545,6 @@ function showNotification(message, type = "info") {
 
   // Add event listener to close button
 
-// Suggestions system implementation
-document.addEventListener('DOMContentLoaded', function() {
-  const suggestionForm = document.querySelector('.suggestion-form');
-  const suggestionText = document.getElementById('suggestion-text');
-  const submitSuggestionBtn = document.getElementById('submit-suggestion');
-  const suggestionStatus = document.getElementById('suggestion-status');
-  
-  if (submitSuggestionBtn) {
-    submitSuggestionBtn.addEventListener('click', function() {
-      if (!suggestionText || suggestionText.value.trim() === '') {
-        showNotification('Please enter a suggestion before submitting', 'error');
-        return;
-      }
-      
-      // Get staff name (fake a random name if not available)
-      const staffNames = ['Dennis', 'Notsus', 'Watermelon', 'Crazy', 'Adelnon', 'Santa', 'Reversals', 'makoralen', 'waktool', 'Creeper'];
-      const staffName = sessionStorage.getItem('loggedInUser') || staffNames[Math.floor(Math.random() * staffNames.length)];
-      
-      // Store the suggestion in local storage with staff name
-      const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
-      suggestions.push({
-        text: suggestionText.value,
-        date: new Date().toISOString(),
-        status: 'pending',
-        author: staffName
-      });
-      localStorage.setItem('staffSuggestions', JSON.stringify(suggestions));
-      
-      // Show success message
-      showNotification('Suggestion submitted successfully!', 'success');
-      suggestionText.value = '';
-      
-      // Immediately display updated suggestions
-      displaySavedSuggestions();
-    });
-  }
-  
-  // Always display saved suggestions
-  displaySavedSuggestions();
-});
-
-// Function to display previously saved suggestions
-function displaySavedSuggestions() {
-  const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
-  const statusDiv = document.getElementById('suggestion-status');
-  
-  if (statusDiv) {
-    // Create header for the suggestions section
-    const header = document.createElement('div');
-    header.className = 'suggestions-header';
-    header.innerHTML = `
-      <h3><i class="fas fa-comments"></i> Staff Suggestions Board</h3>
-      <p>View and search all staff suggestions. All suggestions are visible to everyone.</p>
-    `;
-    
-    // Create a search box for suggestions
-    const searchBox = document.createElement('div');
-    searchBox.className = 'suggestion-search';
-    searchBox.innerHTML = `
-      <input type="text" id="suggestion-search" placeholder="Search suggestions..." class="suggestion-search-input">
-    `;
-    
-    statusDiv.innerHTML = ''; // Clear previous content
-    statusDiv.appendChild(header);
-    statusDiv.appendChild(searchBox);
-    
-    // Add suggestions count indicator
-    const suggestionsCount = document.createElement('div');
-    suggestionsCount.className = 'suggestions-count';
-    suggestionsCount.innerHTML = `<h4>All Staff Suggestions (${suggestions.length})</h4>`;
-    statusDiv.appendChild(suggestionsCount);
-    
-    // Create container for suggestions
-    const suggestionsContainer = document.createElement('div');
-    suggestionsContainer.className = 'suggestions-container';
-    statusDiv.appendChild(suggestionsContainer);
-    
-    if (suggestions.length > 0) {
-      // Create the list
-      const list = document.createElement('ul');
-      list.className = 'suggestions-list';
-      
-      // Show all suggestions 
-      suggestions.reverse().forEach((suggestion, index) => {
-        const listItem = document.createElement('li');
-        listItem.setAttribute('data-suggestion-id', index);
-        listItem.innerHTML = `
-          <div class="suggestion-header">
-            <span class="suggestion-author">${suggestion.author || 'Anonymous'}</span>
-            <small>Submitted on ${new Date(suggestion.date).toLocaleString()}</small>
-          </div>
-          <p class="suggestion-content">${suggestion.text}</p>
-          <div class="suggestion-meta">
-            <span class="suggestion-status ${suggestion.status}">${suggestion.status}</span>
-            <button class="btn-vote upvote" data-id="${index}"><i class="fas fa-thumbs-up"></i> <span class="vote-count">${suggestion.upvotes || 0}</span></button>
-          </div>
-        `;
-        list.appendChild(listItem);
-      });
-      
-      suggestionsContainer.appendChild(list);
-      
-      // Add search functionality
-      const searchInput = document.getElementById('suggestion-search');
-      if (searchInput) {
-        searchInput.addEventListener('input', function() {
-          const searchTerm = this.value.toLowerCase();
-          const suggestionItems = document.querySelectorAll('.suggestions-list li');
-          
-          suggestionItems.forEach(item => {
-            const suggestionText = item.querySelector('.suggestion-content').textContent.toLowerCase();
-            const authorText = item.querySelector('.suggestion-author').textContent.toLowerCase();
-            if (suggestionText.includes(searchTerm) || authorText.includes(searchTerm)) {
-              item.style.display = 'block';
-            } else {
-              item.style.display = 'none';
-            }
-          });
-        });
-      }
-      
-      // Add upvote functionality
-      document.querySelectorAll('.btn-vote').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const id = this.getAttribute('data-id');
-          const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
-          const suggestion = suggestions[suggestions.length - 1 - id]; // Account for reversed display
-          
-          if (!suggestion.upvotes) suggestion.upvotes = 0;
-          suggestion.upvotes++;
-          
-          this.querySelector('.vote-count').textContent = suggestion.upvotes;
-          localStorage.setItem('staffSuggestions', JSON.stringify(suggestions));
-          
-          showNotification('Vote recorded!', 'success');
-        });
-      });
-    } else {
-      // No suggestions message
-      const noSuggestions = document.createElement('div');
-      noSuggestions.className = 'no-suggestions';
-      noSuggestions.innerHTML = `
-        <i class="fas fa-comment-slash" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
-        <p>No suggestions have been submitted yet.</p>
-        <p>Be the first to suggest an improvement!</p>
-      `;
-      suggestionsContainer.appendChild(noSuggestions);
-    }
-    
-    // Make the suggestions section visible
-    statusDiv.style.display = 'block';
-  }
-}
-
-// Function to export all suggestions
-function exportAllSuggestions() {
-  const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
-  if (suggestions.length === 0) {
-    showNotification('No suggestions to export', 'error');
-    return;
-  }
-  
-  // Format the suggestions as text
-  let exportText = "# Psycho Hatcher Staff Suggestions\n\n";
-  suggestions.forEach((suggestion, index) => {
-    exportText += `## Suggestion ${index + 1}\n`;
-    exportText += `**Date:** ${new Date(suggestion.date).toLocaleString()}\n`;
-    exportText += `**Status:** ${suggestion.status}\n\n`;
-    exportText += `${suggestion.text}\n\n`;
-    exportText += `---\n\n`;
-  });
-  
-  // Create a blob and download it
-  const blob = new Blob([exportText], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `psycho-hatcher-suggestions-${new Date().toISOString().split('T')[0]}.txt`;
-  document.body.appendChild(a);
-  a.click();
-  
-  // Clean up
-  setTimeout(() => {
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }, 100);
-  
-  showNotification('Suggestions exported successfully!', 'success');
-}
-
   notificationElement
     .querySelector(".notification-close")
     .addEventListener("click", () => {
@@ -828,6 +569,79 @@ function exportAllSuggestions() {
     notificationElement.classList.add("notification-show");
   }, 10);
 }
+
+// Add scroll progress bar
+document.addEventListener('DOMContentLoaded', function() {
+  // Create progress bar
+  const progressBar = document.createElement('div');
+  progressBar.className = 'scroll-progress';
+  document.body.appendChild(progressBar);
+
+  // Update progress bar width on scroll
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollProgress = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollProgress + '%';
+
+    // Show back to top button when scrolled down
+    const backToTopBtn = document.querySelector('.back-to-top');
+    if (scrollTop > 300) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  });
+
+  // Add back to top button
+  const backToTopBtn = document.createElement('button');
+  backToTopBtn.className = 'back-to-top';
+  backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  backToTopBtn.title = 'Back to top';
+  document.body.appendChild(backToTopBtn);
+
+  // Scroll to top when button is clicked
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+});
+
+// Add interactive checklists for guide pages
+document.addEventListener('DOMContentLoaded', function() {
+  const guidePage = document.querySelector('.guide-content.active');
+
+  if (guidePage) {
+    const checklistItems = guidePage.querySelectorAll('.checklist-item input[type="checkbox"]');
+
+    checklistItems.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const parentItem = this.closest('.checklist-item');
+
+        if (this.checked) {
+          parentItem.style.textDecoration = 'line-through';
+          parentItem.style.opacity = '0.7';
+        } else {
+          parentItem.style.textDecoration = 'none';
+          parentItem.style.opacity = '1';
+        }
+
+        // Count checked items
+        const guide = this.closest('.guide-content');
+        const totalItems = guide.querySelectorAll('.checklist-item').length;
+        const checkedItems = guide.querySelectorAll('.checklist-item input[type="checkbox"]:checked').length;
+
+        // If all items are checked, show success notification
+        if (checkedItems === totalItems) {
+          showNotification('All items checked! Issue should be resolved.', 'success');
+        }
+      });
+    });
+  }
+});
+
 
 // Initialize tooltips
 function initializeTooltips() {
@@ -1007,5 +821,369 @@ document.addEventListener("click", function (e) {
         button.innerHTML = originalIcon;
       }, 2000);
     });
+  }
+});
+
+
+/**
+ * Suggestion System for Psycho Hatcher Staff Portal
+ * Handles submission, display, and management of staff suggestions
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize suggestion system if on the correct page
+    initializeSuggestionSystem();
+
+    // Display existing suggestions
+    if (document.getElementById('suggestion-status')) {
+        displaySuggestions();
+    }
+});
+
+/**
+ * Initialize the suggestion submission system
+ */
+function initializeSuggestionSystem() {
+    const submitSuggestionBtn = document.getElementById('submit-suggestion');
+    if (!submitSuggestionBtn) return;
+
+    submitSuggestionBtn.addEventListener('click', function() {
+        const suggestionTextarea = document.getElementById('suggestion-text');
+        const suggestionText = suggestionTextarea.value;
+
+        if (suggestionText.trim() === '') {
+            showNotification('Please enter a suggestion before submitting.', 'error');
+            return;
+        }
+
+        submitNewSuggestion(suggestionText);
+
+        // Clear the input
+        suggestionTextarea.value = '';
+    });
+}
+
+/**
+ * Submit a new suggestion to the system
+ * @param {string} suggestionText - The text of the suggestion
+ */
+function submitNewSuggestion(suggestionText) {
+    // Get current user
+    const currentUser = sessionStorage.getItem('loggedInUser') || 'Anonymous';
+
+    // Create suggestion object with metadata
+    const newSuggestion = {
+        text: suggestionText,
+        author: currentUser,
+        date: new Date().toISOString(),
+        status: 'pending', // pending, approved, rejected
+        votes: 0,
+        votedUsers: []
+    };
+
+    // Get existing suggestions or initialize empty array
+    let staffSuggestions = JSON.parse(localStorage.getItem('staffSuggestions')) || [];
+
+    // Add new suggestion to array
+    staffSuggestions.push(newSuggestion);
+
+    // Save back to local storage
+    localStorage.setItem('staffSuggestions', JSON.stringify(staffSuggestions));
+
+    // Show success message
+    showNotification('Your suggestion has been submitted successfully!', 'success');
+
+    // Update the suggestions list
+    displaySuggestions();
+}
+
+/**
+ * Display all suggestions in the suggestion status area
+ */
+function displaySuggestions() {
+    const suggestionStatus = document.getElementById('suggestion-status');
+    if (!suggestionStatus) return;
+
+    // Get suggestions from local storage
+    const staffSuggestions = JSON.parse(localStorage.getItem('staffSuggestions')) || [];
+
+    if (staffSuggestions.length === 0) {
+        suggestionStatus.innerHTML = '<p class="no-suggestions">No suggestions have been submitted yet. Be the first to suggest an improvement!</p>';
+        return;
+    }
+
+    // Sort suggestions by date (newest first)
+    staffSuggestions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Build HTML for suggestions list
+    let suggestionsHTML = '<h4>Staff Suggestions Board</h4>';
+    suggestionsHTML += `<p class="suggestions-count">${staffSuggestions.length} suggestion${staffSuggestions.length !== 1 ? 's' : ''} submitted</p>`;
+    suggestionsHTML += '<ul class="suggestions-list">';
+
+    staffSuggestions.forEach((suggestion, index) => {
+        // Format date for better readability
+        const date = new Date(suggestion.date);
+        const formattedDate = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+
+        // Create status badge
+        let statusClass = '';
+        let statusText = '';
+
+        switch(suggestion.status) {
+            case 'approved':
+                statusClass = 'approved';
+                statusText = 'Approved';
+                break;
+            case 'rejected':
+                statusClass = 'rejected';
+                statusText = 'Rejected';
+                break;
+            default:
+                statusClass = 'pending';
+                statusText = 'Under Review';
+        }
+
+        suggestionsHTML += `
+            <li>
+                <div class="suggestion-header">
+                    <span class="suggestion-author">${suggestion.author}</span>
+                    <span class="suggestion-date">${formattedDate}</span>
+                </div>
+                <div class="suggestion-content">${suggestion.text}</div>
+                <div class="suggestion-footer">
+                    <span class="suggestion-status ${statusClass}">${statusText}</span>
+                    <div class="suggestion-actions">
+                        <button class="btn-vote upvote" data-index="${index}">
+                            <i class="fas fa-thumbs-up"></i> <span class="vote-count">${suggestion.votes}</span>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        `;
+    });
+
+    suggestionsHTML += '</ul>';
+
+    // Update the DOM
+    suggestionStatus.innerHTML = suggestionsHTML;
+
+    // Add event listeners for voting
+    attachVoteEventListeners();
+}
+
+/**
+ * Attach vote event listeners to suggestion vote buttons
+ */
+function attachVoteEventListeners() {
+    document.querySelectorAll('.btn-vote').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index'));
+            handleVote(index, this);
+        });
+    });
+}
+
+/**
+ * Handle a vote on a suggestion
+ * @param {number} index - The index of the suggestion
+ * @param {HTMLElement} buttonElement - The vote button element
+ */
+function handleVote(index, buttonElement) {
+    const staffSuggestions = JSON.parse(localStorage.getItem('staffSuggestions'));
+
+    // Get the current user
+    const currentUser = sessionStorage.getItem('loggedInUser') || 'Anonymous';
+
+    // Check if user already voted
+    if (staffSuggestions[index].votedUsers && staffSuggestions[index].votedUsers.includes(currentUser)) {
+        showNotification('You have already voted on this suggestion.', 'error');
+        return;
+    }
+
+    // Increment vote count and add user to voted list
+    staffSuggestions[index].votes++;
+
+    // Initialize votedUsers array if it doesn't exist
+    if (!staffSuggestions[index].votedUsers) {
+        staffSuggestions[index].votedUsers = [];
+    }
+
+    staffSuggestions[index].votedUsers.push(currentUser);
+
+    // Save updated suggestions
+    localStorage.setItem('staffSuggestions', JSON.stringify(staffSuggestions));
+
+    // Update the display
+    buttonElement.querySelector('.vote-count').textContent = staffSuggestions[index].votes;
+
+    showNotification('Your vote has been counted!', 'success');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // FAQ Items Toggle
+  const faqQuestions = document.querySelectorAll('.faq-question');
+
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+
+      // Toggle active class on question
+      this.classList.toggle('active');
+
+      // Toggle active class on answer
+      answer.classList.toggle('active');
+
+      // Change icon
+      const icon = this.querySelector('i');
+      if (icon) {
+        if (this.classList.contains('active')) {
+          icon.classList.remove('fa-caret-right');
+          icon.classList.add('fa-caret-down');
+        } else {
+          icon.classList.remove('fa-caret-down');
+          icon.classList.add('fa-caret-right');
+        }
+      }
+    });
+  });
+
+  // Guide Headers Toggle
+  const guideHeaders = document.querySelectorAll('.guide-header');
+
+  guideHeaders.forEach(header => {
+    header.addEventListener('click', function() {
+      // Toggle active class on header
+      this.classList.toggle('active');
+
+      // Get guide ID and toggle content
+      const guideId = this.getAttribute('data-guide');
+      const content = document.getElementById(guideId + '-content');
+
+      if (content) {
+        content.classList.toggle('active');
+      }
+    });
+  });
+
+  // Toggle guide content display
+  const guideCards = document.querySelectorAll('.guide-card');
+
+  guideCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      // Only toggle if the click is on the card but not on a button
+      if (e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+        const content = this.querySelector('.guide-content');
+        if (content) {
+          content.classList.toggle('active');
+        }
+      }
+    });
+  });
+
+  // Copy template buttons
+  const copyButtons = document.querySelectorAll('.copy-template');
+
+  copyButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent triggering parent click events
+
+      const template = this.getAttribute('data-template');
+      let textToCopy;
+
+      // Get all paragraphs from the template content
+      const paragraphs = this.parentElement.querySelectorAll('p, li, ul, ol');
+
+      if (paragraphs.length > 0) {
+        // Join all paragraphs with line breaks
+        textToCopy = Array.from(paragraphs)
+          .map(p => p.textContent)
+          .join('\n\n');
+      } else {
+        // Fallback to getting just the immediate text
+        textToCopy = this.parentElement.textContent;
+      }
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+          // Change button text temporarily
+          const originalText = this.innerHTML;
+          this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+
+          setTimeout(() => {
+            this.innerHTML = originalText;
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    });
+  });
+
+  // Suggestion form handling
+  const suggestionForm = document.getElementById('submit-suggestion');
+  const suggestionText = document.getElementById('suggestion-text');
+  const suggestionStatus = document.getElementById('suggestion-status');
+
+  if (suggestionForm && suggestionText && suggestionStatus) {
+    suggestionForm.addEventListener('click', function() {
+      const suggestion = suggestionText.value.trim();
+
+      if (suggestion === '') {
+        suggestionStatus.innerHTML = '<p class="error-message">Please enter a suggestion before submitting.</p>';
+        suggestionStatus.className = 'error';
+        return;
+      }
+
+      // In a real application, you would send this to a server
+      // For this demo, we'll just show a success message
+      suggestionStatus.innerHTML = '<p class="success-message">Thank you for your suggestion! It has been submitted for review.</p>';
+      suggestionStatus.className = 'success';
+      suggestionText.value = '';
+
+      // Display the suggestion in the list (demo purposes)
+      const now = new Date();
+      const formattedDate = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+
+      const suggestionHTML = `
+        <div class="suggestion-item">
+          <p class="suggestion-text">${suggestion}</p>
+          <p class="suggestion-meta">Submitted by You on ${formattedDate}</p>
+          <div class="suggestion-actions">
+            <span class="suggestion-status pending">Pending Review</span>
+          </div>
+        </div>
+      `;
+
+      suggestionStatus.innerHTML += suggestionHTML;
+    });
+  }
+
+  // Logo upload handling
+  const logoUpload = document.getElementById('logo-upload');
+  const logoPreview = document.getElementById('logo-preview');
+  const footerLogo = document.getElementById('footer-logo');
+
+  if (logoUpload && logoPreview) {
+    logoUpload.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file && file.type.match('image.*')) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          logoPreview.src = e.target.result;
+          if (footerLogo) {
+            footerLogo.src = e.target.result;
+          }
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Initialize: Open first FAQ item
+  if (faqQuestions.length > 0) {
+    faqQuestions[0].click();
   }
 });
