@@ -899,11 +899,18 @@ guideButtons.forEach(button => {
     if (contentElement.classList.contains('active')) {
       this.textContent = 'Hide Guide';
 
-      // Convert markdown to HTML
+      // Convert markdown to HTML and set content
       const markdownContent = guideContents[guideType];
-      contentElement.innerHTML = convertMarkdownToHTML(markdownContent);
+      if (markdownContent) {
+        contentElement.innerHTML = convertMarkdownToHTML(markdownContent);
+        contentElement.style.display = 'block';
+      } else {
+        contentElement.innerHTML = '<p>Guide content not available.</p>';
+        contentElement.style.display = 'block';
+      }
     } else {
       this.textContent = 'View Guide';
+      contentElement.style.display = 'none';
     }
   });
 });
