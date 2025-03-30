@@ -494,6 +494,7 @@
     border-radius: 4px;
     border-left: 3px solid var(--primary-color);
     transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
   
   .suggestions-list li:hover {
@@ -501,16 +502,120 @@
     transform: translateY(-2px);
   }
   
+  .suggestion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .suggestion-author {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1rem;
+  }
+  
+  .suggestion-content {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin: 10px 0;
+  }
+  
   .suggestion-status {
     display: inline-block;
     padding: 3px 8px;
     border-radius: 12px;
     font-size: 0.8rem;
-    margin-top: 5px;
+    background-color: #ffe0e0;
+    color: #d32f2f;
+  }
+  
+  .suggestion-status.pending {
+    background-color: #fff3e0;
+    color: #ef6c00;
+  }
+  
+  .suggestion-status.approved {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .suggestion-status.implemented {
+    background-color: #e3f2fd;
+    color: #1565c0;
   }
   
   .suggestion-meta {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .btn-vote {
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #666;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-vote:hover {
+    background-color: #f5f5f5;
+    color: var(--primary-color);
+  }
+  
+  .btn-vote.upvote .fa-thumbs-up {
+    color: #4caf50;
+  }
+  
+  .suggestions-header {
+    margin-bottom: 20px;
+  }
+  
+  .suggestions-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+  }
+  
+  .suggestions-header p {
+    color: #666;
+  }
+  
+  .suggestion-search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .suggestion-search-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 0.9rem;
+  }
+  
+  .no-suggestions {
+    text-align: center;
+    padding: 30px;
+    color: #999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
     justify-content: space-between;
     align-items: center;
     margin-top: 8px;
