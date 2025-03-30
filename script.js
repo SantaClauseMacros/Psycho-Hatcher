@@ -915,6 +915,17 @@ guideButtons.forEach((button) => {
       contentElement.style.display = "none";
     }
   });
+
+  // Trigger click once to initialize content
+  const guideType = button.getAttribute("data-guide");
+  const contentElement = document.getElementById(`${guideType}-content`);
+
+  // Pre-load content but keep it hidden initially
+  const markdownContent = guideContents[guideType];
+  if (markdownContent) {
+    contentElement.innerHTML = convertMarkdownToHTML(markdownContent);
+    contentElement.style.display = "none";
+  }
 });
 
 // Simple Markdown to HTML converter
