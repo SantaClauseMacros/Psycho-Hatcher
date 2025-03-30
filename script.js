@@ -658,29 +658,31 @@ document.addEventListener("DOMContentLoaded", function () {
     submitBtn.addEventListener("click", submitSuggestion);
   }
 
-  // Template copy functionality
-  document.querySelectorAll(".copy-template").forEach((button) => {
-    button.addEventListener("click", function () {
-      const templateType = this.getAttribute("data-template");
-      const contentDiv = this.closest(".template-content");
-      const paragraphs = contentDiv.querySelectorAll("p");
+  // Copy template functionality
+      document.querySelectorAll(".copy-template").forEach((button) => {
+        button.addEventListener("click", function () {
+          const templateType = this.getAttribute("data-template");
+          const contentDiv = this.closest(".template-content");
+          const paragraphs = contentDiv.querySelectorAll("p");
 
-      let templateText = "";
-      paragraphs.forEach((p) => {
-        templateText += p.textContent + "\n\n";
+          let templateText = "";
+          paragraphs.forEach((p) => {
+            // Remove quotes from the text
+            let cleanText = p.textContent.replace(/["']/g, '');
+            templateText += cleanText + "\n\n";
+          });
+
+          navigator.clipboard.writeText(templateText.trim()).then(() => {
+            showNotification("Template copied to clipboard!", "success");
+
+            // Visual feedback
+            this.textContent = "Copied!";
+            setTimeout(() => {
+              this.textContent = "Copy Template";
+            }, 2000);
+          });
+        });
       });
-
-      navigator.clipboard.writeText(templateText.trim()).then(() => {
-        showNotification("Template copied to clipboard!", "success");
-
-        // Visual feedback
-        this.textContent = "Copied!";
-        setTimeout(() => {
-          this.textContent = "Copy Template";
-        }, 2000);
-      });
-    });
-  });
 });
 
 function submitSuggestion() {
