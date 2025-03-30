@@ -1017,6 +1017,72 @@ function showNotification(message, type = "info") {
   document.body.appendChild(notificationElement);
 
   // Add event listener to close button
+
+// Suggestions system implementation
+document.addEventListener('DOMContentLoaded', function() {
+  const suggestionForm = document.querySelector('.suggestion-form');
+  const suggestionText = document.getElementById('suggestion-text');
+  const submitSuggestionBtn = document.getElementById('submit-suggestion');
+  const suggestionStatus = document.getElementById('suggestion-status');
+  
+  if (submitSuggestionBtn) {
+    submitSuggestionBtn.addEventListener('click', function() {
+      if (!suggestionText || suggestionText.value.trim() === '') {
+        showNotification('Please enter a suggestion before submitting', 'error');
+        return;
+      }
+      
+      // Store the suggestion in local storage temporarily
+      const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
+      suggestions.push({
+        text: suggestionText.value,
+        date: new Date().toISOString(),
+        status: 'pending'
+      });
+      localStorage.setItem('staffSuggestions', JSON.stringify(suggestions));
+      
+      // Show success message
+      showNotification('Suggestion submitted successfully!', 'success');
+      suggestionText.value = '';
+      
+      // Display the status
+      if (suggestionStatus) {
+        suggestionStatus.innerHTML = '<p class="success-message">Your suggestion has been submitted and will be reviewed by administrators.</p>';
+        setTimeout(() => {
+          suggestionStatus.innerHTML = '';
+        }, 5000);
+      }
+    });
+  }
+  
+  // Display saved suggestions if any
+  displaySavedSuggestions();
+});
+
+// Function to display previously saved suggestions
+function displaySavedSuggestions() {
+  const suggestions = JSON.parse(localStorage.getItem('staffSuggestions') || '[]');
+  const statusDiv = document.getElementById('suggestion-status');
+  
+  if (statusDiv && suggestions.length > 0) {
+    statusDiv.innerHTML = '<h4>Your Recent Suggestions:</h4>';
+    const list = document.createElement('ul');
+    list.className = 'suggestions-list';
+    
+    suggestions.slice(-3).forEach(suggestion => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <p>${suggestion.text}</p>
+        <small>Submitted on ${new Date(suggestion.date).toLocaleString()}</small>
+        <span class="suggestion-status ${suggestion.status}">${suggestion.status}</span>
+      `;
+      list.appendChild(listItem);
+    });
+    
+    statusDiv.appendChild(list);
+  }
+}
+
   notificationElement
     .querySelector(".notification-close")
     .addEventListener("click", () => {
