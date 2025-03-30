@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psycho Hatcher Staff Portal</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="icons.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img id="logo-preview" src="https://via.placeholder.com/150" alt="Psycho Hatcher Logo">
+            <div class="logo-upload">
+                <label for="logo-upload" class="upload-btn">
+                    <i class="fas fa-upload"></i> Upload Logo
+                </label>
+                <input type="file" id="logo-upload" accept="image/*">
+            </div>
+        </div>
+        <h1>Psycho Hatcher Staff Portal</h1>
+        <div class="header-actions">
+            <button id="logout-btn" class="btn btn-outline">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#guidelines" class="active">Guidelines</a></li>
+            <li><a href="#staff-list">Staff List</a></li>
+            <li><a href="#troubleshooting">Troubleshooting Guides</a></li>
+            <li><a href="#scripts">Support Scripts</a></li>
+            <li><a href="#clan-info">Clan Info</a></li>
+            <li><a href="#bug-responses">Bug Responses</a></li>
+            <li><a href="#vip-info">VIP Info</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="guidelines" class="section-card">
+            <h2><i class="fas fa-book"></i> Staff Guidelines</h2>
+            <div class="alert-box">
+                <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
+                <p>Please rename support tickets to reflect their subject matter for better organization.</p>
+                <p>Example: Rename "Ticket-567" to "Rankup-567" for a ticket about rankup macro issues.</p>
+            </div>
+
+            <div class="alert-box warning">
+                <h3><i class="fas fa-clock"></i> AFK Policy</h3>
+                <p>If a support team member is unresponsive on their assigned ticket, please tag them with <span class="highlight">@Support</span> 
+                   and note they have 10 minutes to respond before the ticket may be reassigned to another team member.</p>
+            </div>
+        </section>
+
+        <section id="staff-list" class="section-card">
+            <h2><i class="fas fa-users"></i> Staff List & Timezones</h2>
+            <div class="staff-container">
+                <div class="staff-column">
+                    <h3>Staff Members</h3>
+                    <ul class="staff-list">
+                        <li><span class="staff-name">Dennis</span> - Flowerydennis2608</li>
+                        <li><span class="staff-name">Notsus</span> - ZackplaysOfficial_YT</li>
+                        <li><span class="staff-name">Watermelon</span> - Bushmills2008</li>
+                        <li><span class="staff-name">Crazy</span> - CrazyPlayerM100</li>
+                        <li><span class="staff-name">Adelnon</span> - adelno912</li>
+                        <li><span class="staff-name">Santa</span> - Santa_ClauseYT</li>
+                        <li><span class="staff-name">Reversals</span> - Swiftstep09</li>
+                        <li><span class="staff-name">makoralen</span> - Tygotelindert</li>
+                        <li><span class="staff-name">waktool</span> - waktool</li>
+                        <li><span class="staff-name">Creeper</span> - Overworld_Creeper</li>
+                    </ul>
+                </div>
+                <div class="staff-column">
+                    <h3>Timezones</h3>
+                    <ul class="timezone-list">
+                        <li><span class="staff-name">Mo</span> - CST</li>
+                        <li><span class="staff-name">Dennis</span> - EST</li>
+                        <li><span class="staff-name">Santa</span> - EST</li>
+                        <li><span class="staff-name">WaterMelone</span> - GMT</li>
+                        <li><span class="staff-name">Adelnon</span> - GMT+1</li>
+                        <li><span class="staff-name">Reversals</span> - GMT</li>
+                        <li><span class="staff-name">Notsus</span> - IST</li>
+                        <li><span class="staff-name">Mini</span> - GMT</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="troubleshooting" class="section-card">
+            <h2><i class="fas fa-wrench"></i> Troubleshooting Guides</h2>
+            <div class="guides-container">
+                <div class="guide-card" id="rankup-macro">
+                    <h3>Rankup Macro Troubleshooting</h3>
+                    <p>Guide for resolving issues with the Rankup Macro.</p>
+                    <button class="btn toggle-guide" data-guide="rankup">View Guide</button>
+                    <div class="guide-content" id="rankup-content"></div>
+                </div>
+
+                <div class="guide-card" id="advanced-digging">
+                    <h3>Advanced Digging Mode</h3>
+                    <p>Guide for resolving issues with Advanced Digging Mode.</p>
+                    <button class="btn toggle-guide" data-guide="digging">View Guide</button>
+                    <div class="guide-content" id="digging-content"></div>
+                </div>
+
+                <div class="guide-card" id="clan-mode">
+                    <h3>Clan Mode</h3>
+                    <p>Guide for troubleshooting Clan Mode Macro issues.</p>
+                    <button class="btn toggle-guide" data-guide="clan">View Guide</button>
+                    <div class="guide-content" id="clan-content"></div>
+                </div>
+
+                <div class="guide-card" id="treehouse-mode">
+                    <h3>Treehouse Mode</h3>
+                    <p>Guide for resolving issues with Treehouse Mode.</p>
+                    <button class="btn toggle-guide" data-guide="treehouse">View Guide</button>
+                    <div class="guide-content" id="treehouse-content"></div>
+                </div>
+
+                <div class="guide-card" id="deepfishing-mode">
+                    <h3>Deep Fishing Mode</h3>
+                    <p>Guide for troubleshooting Deep Fishing Mode issues.</p>
+                    <button class="btn toggle-guide" data-guide="fishing">View Guide</button>
+                    <div class="guide-content" id="fishing-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bug-responses" class="section-card">
+            <h2><i class="fas fa-bug"></i> Bug Response Guidelines</h2>
+            <div class="bug-response-box">
+                <h3>Handling Bug Reports</h3>
+                <p>We may occasionally encounter bugs, issues, or broken features in our software. However,
+                    as a support team, our approach to these situations is crucial for maintaining brand
+                    value and trust.</p>
+
+                <div class="script-section">
+                    <h4>Recommended Response:</h4>
+                    <p class="highlight">"That's strange to hear since everything is working stably right
+                        now. Could you please send us a video so we can learn more about your issue and
+                        provide better support?"</p>
+                </div>
+
+                <div class="script-section">
+                    <h4>After receiving video evidence:</h4>
+                    <p><strong>If you can help:</strong> Provide step-by-step assistance to resolve their
+                        issue.</p>
+                    <p><strong>If it's genuinely unusual:</strong> <em>"Let me share this with the team and
+                            get back to you."</em></p>
+                </div>
+
+                <div class="alert-box warning">
+                    <h4>What NOT to say:</h4>
+                    <p>❌ "Yes, it's bugged"</p>
+                    <p>❌ "Yes, it's broken"</p>
+                    <p>❌ "We know about this issue"</p>
+                    <p>Instead, say: ✅ <em>"That's strange, let me check this for you."</em></p>
+                </div>
+
+                <p class="tooltip">Why this approach? <span class="tooltip-text">This builds brand value and
+                        trust while still addressing the customer's concerns.</span></p>
+            </div>
+        </section>
+
+        <section id="scripts" class="section-card">
+            <h2><i class="fas fa-comment-alt"></i> Support Scripts</h2>
+            <div class="script-box">
+                <h3>Customer Service Script</h3>
+
+                <div class="script-section">
+                    <h4>Greeting:</h4>
+                    <p>"Hello! This is [Discord Name]. How can we help you today?"</p>
+                </div>
+
+                <div class="script-section">
+                    <h4>If the Customer Already Sent Their Issue:</h4>
+                    <p>"Hello! This is [Discord Name]. I'm glad to help you with your issue. Let's take a look!"</p>
+                </div>
+
+                <div class="script-section">
+                    <h4>Handling Issues:</h4>
+                    <p>"That's new! I believe there might be a mistake or something done wrong. Let's explore this
+                        further. Could you please provide a video or stream of the issue?"</p>
+
+                    <h5>1. If it's a Common Issue:</h5>
+                    <p>"I see this is a common issue. Let me guide you through the steps to fix it."</p>
+
+                    <h5>2. If it's Not a Common Issue:</h5>
+                    <p>"Thank you for your patience. I'll raise this to our developers' team."</p>
+                    <p><em>(Go to the support team forum and submit the issue along with a tag and the ticket link for
+                            tracking.)</em></p>
+                </div>
+
+                <div class="script-section">
+                    <h4>VIP Questions:</h4>
+                    <p>"For VIP access, you can support our community through a donation! There is no fixed donation
+                        amount; you decide, so please feel free to donate whatever it is worth to you. Here are the
+                        links:</p>
+                    <p>Donation link: <a href="https://streamlabs.com/mopsycho/home"
+                            target="_blank">https://streamlabs.com/mopsycho/home</a></p>
+                    <p>Also, you can use Stripe: <a href="https://donate.stripe.com/00gcPYdimdq0f1m9AA"
+                            target="_blank">https://donate.stripe.com/00gcPYdimdq0f1m9AA</a></p>
+                    <p>Once you've donated, please send us a screenshot in a ticket!"</p>
+                </div>
+
+                <div class="script-section">
+                    <h4>Closing:</h4>
+                    <p>"I'm glad I was able to assist you with your issue! Thank you for reaching out, and have a great
+                        day!"</p>
+                    <p>"We're glad we were able to assist you with your issue! Thank you for reaching out, and have a
+                        great day! This ticket will be closed shortly."</p>
+                </div>
+
+                <div class="script-note">
+                    <p><strong>Note:</strong> The scripts are just a guide. You can put your own flair on it, we don't
+                        expect you to be a robot!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="clan-info" class="section-card">
+            <h2><i class="fas fa-users-cog"></i> Clan Information</h2>
+            <div class="info-box">
+                <h3>Server Listing Requirements</h3>
+                <p>Hey! 👋 To get listed in our server, we do have a couple of requirements:</p>
+                <ul>
+                    <li>Your clan needs to have 1k+ members</li>
+                    <li>Our post needs to be in a space that everyone on your server can access</li>
+                </ul>
+
+                <div class="promo-box">
+                    <h3>Paid Advertisements</h3>
+                    <p>But if you're interested, we can skip all those requirements if you go for our paid ads! 💸</p>
+                    <p>We can add a banner on our website that links directly to your Discord. Your banner will be on
+                        our most visited pages, plus we'll make a post about your clan! 🎉</p>
+                    <p>This will be up for 30 days in both places. The cost is only $5.</p>
+                    <p class="highlight">Let us know if you're interested! 😎</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="vip-info" class="section-card">
+            <h2><i class="fas fa-crown"></i> VIP Information</h2>
+            <div class="info-box vip-box">
+                <h3>VIP Login Information</h3>
+                <div class="credential-box">
+                    <p><strong>Username:</strong> staff-portal@psychohatcher.com</p>
+                    <p><strong>Password:</strong> Tk9@R2s#L7pX$F3mQ!8zD</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>Interview Questions</h3>
+                <p>Hi, please answer these questions below so we can get a better understanding of your knowledge!</p>
+
+                <ol class="interview-list">
+                    <li>How well do you understand Psycho Hatcher? (How to run it, the different modes, different
+                        buttons to click.)</li>
+                    <li>Do you understand some solutions for issues with Psycho Hatcher?</li>
+                    <li>How patient are you /10?</li>
+                    <li>How active are /10?</li>
+                    <li>How professional would you say you are /10?</li>
+                    <li>Scenario: A member is asking how to change their font, how do you approach this situation and
+                        what steps would you give to the member to help them revert their font?</li>
+                    <li>If you are unsure on a solution, what would you do?</li>
+                    <li>Anything to add?</li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Psycho Hatcher Staff Portal. All rights reserved.</p>
+        <div class="footer-logo">
+            <img id="footer-logo" src="https://via.placeholder.com/50" alt="Psycho Hatcher">
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
+    <script src="script.js"></script>
+    <script src="login.js"></script>
+</body>
+
+</html>
