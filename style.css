@@ -140,7 +140,7 @@ nav {
 nav ul {
   display: flex;
   list-style: none;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
@@ -150,13 +150,14 @@ nav a {
   display: block;
   color: var(--text-light);
   text-decoration: none;
-  padding: 1.2rem 1.5rem;
+  padding: 1.2rem 0.9rem;
   font-weight: bold;
   transition: all 0.3s ease;
   position: relative;
   text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
 }
 
 nav a::after {
@@ -661,6 +662,104 @@ footer {
   animation: slide 2s infinite linear;
 }
 
+.login-logo {
+  margin-bottom: 1.5rem;
+}
+
+.login-logo img {
+  max-width: 150px;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.login-msg {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.input-group input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(237, 31, 39, 0.2);
+  outline: none;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.login-error {
+  color: #e74c3c;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  min-height: 1.2rem;
+}
+
+.attempts-info {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.security-notice {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
 @keyframes slide {
   0% {
     left: -100%;
@@ -668,6 +767,47 @@ footer {
   100% {
     left: 100%;
   }
+}
+
+/* Notification Styles */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 1rem;
+  z-index: 1000;
+  transform: translateX(120%);
+  transition: transform 0.3s ease;
+  max-width: 300px;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification i {
+  font-size: 1.2rem;
+}
+
+.notification.success i {
+  color: #2ecc71;
+}
+
+.notification.error i {
+  color: #e74c3c;
+}
+
+.notification.info i {
+  color: #3498db;
 }
 
 .security-notice {
