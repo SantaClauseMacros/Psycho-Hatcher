@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ED1F27">
     <title>Psycho Hatcher Staff Portal</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link href="icons.css" rel="stylesheet" type="text/css" />
@@ -286,6 +287,8 @@
         </section>
     </main>
 
+    </main>
+
     <footer>
         <p>&copy; <span id="current-year"></span> Psycho Hatcher Staff Portal. All rights reserved.</p>
         <div class="footer-logo">
@@ -303,16 +306,21 @@
 </body>
 
 </html>
-
-        <section id="suggestions" class="section-card">
             <h2><i class="fas fa-lightbulb"></i> Staff Suggestions</h2>
             <div class="suggestion-box">
                 <h3>Submit Suggestions for Improvement</h3>
                 <p>Have an idea to improve our support process? Submit it here and it will be saved for review.</p>
                 
+                <div class="alert-box">
+                    <h3><i class="fas fa-info-circle"></i> Why Submit Suggestions?</h3>
+                    <p>Your feedback helps us continually improve our support workflow and tools. All suggestions are reviewed by the team.</p>
+                </div>
+                
                 <div class="suggestion-form">
                     <textarea id="suggestion-text" placeholder="Enter your suggestion here..." rows="5"></textarea>
-                    <button id="submit-suggestion" class="btn">Submit Suggestion</button>
+                    <button id="submit-suggestion" class="btn">
+                        <i class="fas fa-paper-plane"></i> Submit Suggestion
+                    </button>
                 </div>
                 
                 <div id="suggestion-status"></div>
@@ -321,6 +329,11 @@
 
         <section id="ticket-templates" class="section-card">
             <h2><i class="fas fa-clipboard-list"></i> Ticket Templates</h2>
+            <div class="alert-box">
+                <h3><i class="fas fa-star"></i> Template Benefits</h3>
+                <p>Using standardized templates ensures consistent communication and helps resolve tickets faster. Simply click the "Copy Template" button to use any template.</p>
+            </div>
+            
             <div class="templates-container">
                 <div class="template-card">
                     <h3>General Help Response</h3>
@@ -329,7 +342,9 @@
                         <p>Thank you for reaching out to the Psycho Hatcher support team. I'd be happy to help you with your issue.</p>
                         <p>[Provide solution steps here]</p>
                         <p>Let me know if you have any questions!</p>
-                        <button class="btn copy-template" data-template="general">Copy Template</button>
+                        <button class="btn copy-template" data-template="general">
+                            <i class="fas fa-copy"></i> Copy Template
+                        </button>
                     </div>
                 </div>
                 
@@ -342,7 +357,9 @@
                         <p>2. Are you using Roblox in windowed mode?</p>
                         <p>3. Are you using the browser version of Roblox?</p>
                         <p>If possible, could you please provide a video showing the issue so I can better assist you?</p>
-                        <button class="btn copy-template" data-template="macro">Copy Template</button>
+                        <button class="btn copy-template" data-template="macro">
+                            <i class="fas fa-copy"></i> Copy Template
+                        </button>
                     </div>
                 </div>
                 
@@ -354,7 +371,9 @@
                         <p>Donation link: https://streamlabs.com/mopsycho/home</p>
                         <p>Stripe: https://donate.stripe.com/00gcPYdimdq0f1m9AA</p>
                         <p>Once you've donated, please send us a screenshot in this ticket!</p>
-                        <button class="btn copy-template" data-template="vip">Copy Template</button>
+                        <button class="btn copy-template" data-template="vip">
+                            <i class="fas fa-copy"></i> Copy Template
+                        </button>
                     </div>
                 </div>
             </div>
