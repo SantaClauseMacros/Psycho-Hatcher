@@ -894,36 +894,35 @@ guideButtons.forEach((button) => {
     const guideType = this.getAttribute("data-guide");
     const contentElement = document.getElementById(`${guideType}-content`);
 
-    // Toggle active class
-    contentElement.classList.toggle("active");
-
-    // Change button text
-    if (contentElement.classList.contains("active")) {
-      this.textContent = "Hide Guide";
-
-      // Convert markdown to HTML and set content
+    // Toggle active class and visibility
+    if (contentElement.style.display === "block") {
+      // Currently visible, so hide it
+      contentElement.style.display = "none";
+      contentElement.classList.remove("active");
+      this.textContent = "View Guide";
+    } else {
+      // Currently hidden, so show it
       const markdownContent = guideContents[guideType];
       if (markdownContent) {
         contentElement.innerHTML = convertMarkdownToHTML(markdownContent);
         contentElement.style.display = "block";
+        contentElement.classList.add("active");
+        this.textContent = "Hide Guide";
       } else {
         contentElement.innerHTML = "<p>Guide content not available.</p>";
         contentElement.style.display = "block";
+        contentElement.classList.add("active");
+        this.textContent = "Hide Guide";
       }
-    } else {
-      this.textContent = "View Guide";
-      contentElement.style.display = "none";
     }
   });
 
-  // Pre-load content but don't auto-toggle
+  // Pre-load content but don't display it yet
   const guideType = button.getAttribute("data-guide");
   const contentElement = document.getElementById(`${guideType}-content`);
-
-  // Pre-load content but keep it hidden initially
-  const markdownContent = guideContents[guideType];
-  if (markdownContent) {
-    contentElement.innerHTML = convertMarkdownToHTML(markdownContent);
+  
+  // Ensure content area exists and is properly initialized
+  if (contentElement) {
     contentElement.style.display = "none";
   }
 });
