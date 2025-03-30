@@ -439,6 +439,80 @@
     padding: 1rem;
     border-radius: var(--border-radius);
   }
+  
+  /* Suggestion System Styles */
+  .suggestion-form {
+    margin: 1rem 0;
+  }
+  
+  #suggestion-text {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    resize: vertical;
+  }
+  
+  #suggestion-status {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  #suggestion-status.success {
+    background-color: rgba(76, 175, 80, 0.1);
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
+  }
+  
+  #suggestion-status.error {
+    background-color: rgba(244, 67, 54, 0.1);
+    border: 1px solid #F44336;
+    color: #F44336;
+  }
+  
+  .success-message {
+    color: #4CAF50;
+    font-weight: bold;
+  }
+  
+  .suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .suggestions-list li {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border-left: 3px solid var(--primary-color);
+  }
+  
+  .suggestion-status {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+  
+  .suggestion-status.pending {
+    background-color: #FFC107;
+    color: #000;
+  }
+  
+  .suggestion-status.approved {
+    background-color: #4CAF50;
+    color: #fff;
+  }
+  
+  .suggestion-status.rejected {
+    background-color: #F44336;
+    color: #fff;
+  }
 
   .script-section {
     margin-bottom: 1.5rem;
