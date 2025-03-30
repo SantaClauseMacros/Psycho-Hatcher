@@ -1418,8 +1418,17 @@
 
   /* Content transition */
   .guide-content {
-    transition: max-height 0.3s ease-out;
+    transition: all 0.3s ease-out;
     overflow: hidden;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    margin-top: 10px;
+  }
+  
+  .guide-content.active {
+    display: block;
   }
 
   /* Suggestion Section Styles */
