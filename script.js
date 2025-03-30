@@ -118,16 +118,41 @@ function switchLogo(style) {
   const loginLogo = document.getElementById('login-logo-img');
   
   if (logos[style]) {
-    // Update logos
-    logoPreview.src = logos[style].path;
-    footerLogo.src = logos[style].path;
-    if (loginLogo) loginLogo.src = logos[style].path;
+    console.log(`Switching to logo: ${logos[style].path}`);
+    
+    // Update logos with error handling
+    if (logoPreview) {
+      logoPreview.src = logos[style].path;
+      logoPreview.onerror = function() {
+        console.error(`Failed to load logo-preview: ${logos[style].path}`);
+        this.src = 'PsychoHatcher.png'; // Fallback
+      };
+    }
+    
+    if (footerLogo) {
+      footerLogo.src = logos[style].path;
+      footerLogo.onerror = function() {
+        console.error(`Failed to load footer-logo: ${logos[style].path}`);
+        this.src = 'PsychoHatcher.png'; // Fallback
+      };
+    }
+    
+    if (loginLogo) {
+      loginLogo.src = logos[style].path;
+      loginLogo.onerror = function() {
+        console.error(`Failed to load login-logo: ${logos[style].path}`);
+        this.src = 'PsychoHatcher.png'; // Fallback
+      };
+    }
     
     // Apply color theme
     applyColorTheme(logos[style].colors);
     
     localStorage.setItem('selectedLogo', style);
     showNotification(`Theme changed to ${style}`, 'success');
+  } else {
+    console.error(`Invalid logo style: ${style}`);
+    showNotification(`Failed to change theme`, 'error');
   }
 }
 
@@ -226,6 +251,10 @@ function showLogoSwitcher() {
       const img = document.createElement('img');
       img.src = logos[style].path;
       img.alt = `${style} logo`;
+      img.onerror = function() {
+        console.error(`Failed to load image: ${logos[style].path}`);
+        this.src = 'PsychoHatcher.png'; // Fallback to default logo
+      };
       
       const label = document.createElement('span');
       label.textContent = style.charAt(0).toUpperCase() + style.slice(1) + ' Theme';
@@ -251,6 +280,7 @@ function showLogoSwitcher() {
       });
       
       option.onclick = () => {
+        console.log(`Switching to logo style: ${style}`);
         switchLogo(style);
         document.body.removeChild(overlay);
       };
