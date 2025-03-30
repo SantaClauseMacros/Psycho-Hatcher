@@ -16,46 +16,32 @@ document.addEventListener('copy', function(e) {
   }
 });
 
-// Logo Upload Functionality
-const logoUpload = document.getElementById('logo-upload');
+// Set static logo
 const logoPreview = document.getElementById('logo-preview');
 const footerLogo = document.getElementById('footer-logo');
 
-logoUpload.addEventListener('change', function(event) {
-  const file = event.target.files[0];
-  if (file && file.type.match('image.*')) {
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-      const imageUrl = e.target.result;
-      logoPreview.src = imageUrl;
-      footerLogo.src = imageUrl;
-
-      // Update login logo if present
-      const loginLogo = document.getElementById('login-logo-img');
-      if (loginLogo) {
-        loginLogo.src = imageUrl;
-      }
-
-      // Save to local storage
-      localStorage.setItem('psychoHatcherLogo', imageUrl);
-
-      // Show success message
-      showNotification('Logo updated successfully!', 'success');
-    };
-
-    reader.readAsDataURL(file);
-  }
-});
-
-// Load saved logo if exists
+// Load static logo on page load
 window.addEventListener('DOMContentLoaded', () => {
-  const savedLogo = localStorage.getItem('psychoHatcherLogo');
-  if (savedLogo) {
-    logoPreview.src = savedLogo;
-    footerLogo.src = savedLogo;
+  // Set static logo from project files
+  logoPreview.src = 'PsychoHatcher.png';
+  footerLogo.src = 'PsychoHatcher.png';
+  
+  // Disable logo upload functionality
+  const logoUpload = document.getElementById('logo-upload');
+  if (logoUpload) {
+    logoUpload.disabled = true;
+    logoUpload.parentElement.classList.add('disabled');
+    logoUpload.parentElement.title = 'Logo uploads are disabled';
   }
-
+  
+  // Hide upload button
+  const uploadBtn = document.querySelector('.upload-btn');
+  if (uploadBtn) {
+    uploadBtn.style.opacity = '0.5';
+    uploadBtn.style.cursor = 'not-allowed';
+    uploadBtn.innerHTML = '<i class="fas fa-lock"></i> Logo Locked';
+  }
+  
   // Initialize custom components
   initializeTooltips();
 
