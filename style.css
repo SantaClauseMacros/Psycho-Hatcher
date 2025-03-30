@@ -2562,3 +2562,42 @@ main section.section-visible {
     width: 80%;
   }
 }
+
+/* Guide Links */
+.guide-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.guide-link:hover .guide-header {
+  background-color: var(--primary-color);
+}
+
+.guides-link-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 30px;
+}
+
+.btn-large {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  width: auto;
+  margin: 0 auto;
+}
+
+.btn-large:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-large i {
+  font-size: 1.3rem;
+}
