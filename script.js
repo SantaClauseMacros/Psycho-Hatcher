@@ -413,201 +413,6 @@ navLinks.forEach((link) => {
   });
 });
 
-// Troubleshooting Guides Content
-const guideButtons = document.querySelectorAll(".toggle-guide");
-const guideContents = {
-  rankup: `### **Psycho Hatchers Rank Up Macro Troubleshooting Guide**
-
-This guide will help you identify and fix common and uncommon issues with the Psycho Hatchers rank-up macro. Please follow the steps below:
-
----
-
-### **Common Issues**
-**1. Scaling is not 100%**
-   - Ask: *"Is your display scaling set to 100%? Check this in your PC's Display Settings."*
-   - Fix: Set scaling to 100% (Settings > Display > Scale and Layout).
-
-**2. Roblox isn't the web browser version**
-   - Ask: *"Are you using the web browser version of Roblox?"*
-   - Fix: Switch to the web browser version.
-
-**3. Roblox is in fullscreen mode**
-   - Ask: *"Is Roblox in fullscreen mode?"*
-   - Fix: Press \`Esc\`, go to Settings, and switch Display Mode to "Windowed."
-
-**4. Camera movement after joining PS99**
-   - Ask: *"Did you move your camera after joining PS99?"*
-   - Fix: Rejoin PS99 and avoid moving the camera.
-
-**5. They haven't pressed F1**
-   - Ask: *"Have you pressed F1 after loading in?"*
-   - Fix: Press F1 to initialize the macro setup.
-
-**6. PC language isn't set to English (US)**
-   - Ask: *"Is your PC language set to English (US)?"*
-   - Fix: Change PC language to English (US) (Settings > Time & Language > Language).
-
-**7. Font hasn't been changed**
-   - Ask: *"Have you changed your font settings?"*
-   - Fix: Change the font back to the system default (or reset to recommended settings).
-
-**8. Background transparency isn't opaque**
-   - Ask: *"Is your background transparency set to opaque?"*
-   - Fix: Set background transparency to opaque in Roblox Settings.
-
----
-
-### **Uncommon Issues**
-**1. Big Games messing with UI**
-   - Ask: *"Are you experiencing UI issues specific to Big Games?"*
-   - Fix: Report UI issues to Waktool for debugging.
-
-**2. PC settings affecting color**
-   - Ask: *"Do you have any PC settings that modify colors (like Night Light, HDR, or color filters)?"*
-   - Fix: Turn off any features that alter screen colors.
-
-**3. Not all zones are unlocked**
-   - Ask: *"Do you have all zones unlocked in the game?"*
-   - Fix: Ensure all zones are unlocked; players missing zones cannot progress correctly.
-
----
-
-### **Escalation Process**
-1. If **common issues** are resolved but the macro still isn't working:
-   - Ping **Waktool** for help with Big Games issues or PC color settings.
-
-2. If **all other steps fail**, and the issue remains unresolved:
-   - Ping **Reversals** for manual intervention and fixes.
-
----
-
-### **Checklist for Common Issues**
-- [ ] Scaling is at 100%.
-- [ ] Roblox is the web browser version.
-- [ ] Roblox is not in fullscreen mode.
-- [ ] No camera movement after joining PS99.
-- [ ] F1 key has been pressed.
-- [ ] PC language is set to English (US).
-- [ ] Default font is used.
-- [ ] Background transparency is set to opaque.
-
-Use this checklist to ensure a smooth troubleshooting process!`,
-
-  digging: `### **Psycho Hatchers Advanced Digging Mode Troubleshooting Guide**
-
-This guide is designed to help resolve issues with the **Advanced Digging Mode** macro. Follow these steps to identify and fix the problem.
-
----
-
-### **Common Issues**
-
-**1. Scaling is not set to 100%**
-   - Ask: *"Is your display scaling set to 100%?"*
-   - Fix: Adjust display scaling to 100% in your PC's Display Settings (Settings > Display > Scale and Layout).
-
-**2. Roblox isn't in windowed mode**
-   - Ask: *"Is Roblox in fullscreen mode?"*
-   - Fix: Switch Roblox to **Windowed Mode** by pressing \`Esc\`, navigating to Settings, and selecting **Windowed** in the Display Mode setting.
-
-**3. Not using the web browser version of Roblox**
-   - Ask: *"Are you using the web browser version of Roblox?"*
-   - Fix: Close the Roblox app and switch to the web browser version.
-
-**4. Using a shiny hoverboard**
-   - Ask: *"Are you using a shiny hoverboard?"*
-   - Fix: Switch to a basic hoverboard or dismount entirely. Shiny hoverboards can interfere with the macro.
-
-**5. Not in World 1**
-   - Ask: *"Are you currently in World 1?"*
-   - Fix: Navigate to **World 1**. Advanced Digging Mode works only in this specific world.
-
-**6. Camera movement after starting**
-   - Ask: *"Have you moved your camera since starting the macro?"*
-   - Fix: Rejoin World 1 and avoid moving the camera after starting the macro.
-
----
-
-### **Uncommon Issues**
-
-**1. Different camera mode than default**
-   - Ask: *"Is your camera mode set to default?"*
-   - Fix: Go to Roblox settings and switch the camera mode to **Default Classic**.
-
-**2. PC settings that affect color**
-   - Ask: *"Do you have any PC settings that alter color (Night Light, HDR, color filters)?"*
-   - Fix: Disable any color-altering settings on your PC.
-
----
-
-### **Escalation Process**
-- If **common issues** are fixed but the macro still doesn't work:
-  - Ping **Waktool** for debugging issues related to PC or camera settings.
-- If the issue persists and cannot be resolved:
-  - Ping **Reversals** for further assistance.
-
----
-
-### **Checklist for Common Issues**
-- [ ] Scaling is set to 100%.
-- [ ] Roblox is in windowed mode.
-- [ ] Using the web browser version of Roblox.
-- [ ] Not using a shiny hoverboard.
-- [ ] Player is in World 1.
-- [ ] Camera has not been moved.
-
-### **Checklist for Uncommon Issues**
-- [ ] Camera mode is set to default.
-- [ ] No PC settings are interfering with color.
-
-By following this guide, you can resolve most issues with Advanced Digging Mode. Escalate only when necessary!`,
-
-  clan: `### **Psycho Hatchers Clan Mode Troubleshooting Guide**
-
-This guide covers troubleshooting for the **Clan Mode Macro**, which is a temporary macro designed to assist clans in reaching the top 10. Follow the steps below to identify and resolve issues.
-
----
-
-### **Common Issues**
-
-**1. Scaling isn't set to 100%**
-   - Ask: *"Is your display scaling set to 100%?"*
-   - Fix: Set scaling to 100% in your PC's Display Settings (Settings > Display > Scale and Layout).
-
-**2. Roblox is in fullscreen mode**
-   - Ask: *"Is Roblox in fullscreen mode?"*
-   - Fix: Ensure Roblox is in windowed mode. Press \`Esc\`, go to Settings, and set the Display Mode to **Windowed**.
-
-**3. Not located in the Void World**
-   - Ask: *"Are you in the Void World?"*
-   - Fix: Travel to the Void World before starting the macro. The macro will not work in any other world.
-
-**4. Not using the web browser version of Roblox**
-   - Ask: *"Are you using the web browser version of Roblox?"*
-   - Fix: Close the Roblox app and use the web browser version instead.
-
-**5. Using a shiny hoverboard**
-   - Ask: *"Are you using a shiny hoverboard?"*
-   - Fix: Dismount from the shiny hoverboard or switch to a basic hoverboard. Shiny hoverboards can interfere with macro functions.
-
----
-
-### **Uncommon Issues**
-
-- **No uncommon issues have been identified.**  
-  If any unusual issues arise, ping **Reversals**, and they will resolve it.
-
----
-
-### **Checklist for Common Issues**
-- [ ] Scaling is at 100%.
-- [ ] Roblox is not in fullscreen mode.
-- [ ] Player is in the Void World.
-- [ ] The web browser version of Roblox is in use.
-- [ ] Shiny hoverboard is not in use.
-
-If all items in the checklist are resolved and the macro still fails, escalate by contacting **Reversals** for further assistance.
-
-
 // Add scroll animations to elements
 function initScrollAnimations() {
   const animatedElements = document.querySelectorAll('.section-card, .guide-card, .info-box, h2, h3');
@@ -708,12 +513,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Add interactive checklists
+// Add interactive checklists for guide pages
 document.addEventListener('DOMContentLoaded', function() {
-  const guide = document.querySelectorAll('.guide-content');
+  const guidePage = document.querySelector('.guide-content.active');
   
-  guide.forEach(content => {
-    const checklistItems = content.querySelectorAll('.checklist-item input[type="checkbox"]');
+  if (guidePage) {
+    const checklistItems = guidePage.querySelectorAll('.checklist-item input[type="checkbox"]');
     
     checklistItems.forEach(checkbox => {
       checkbox.addEventListener('change', function() {
@@ -738,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
-  });
+  }
 });
 
     header.innerHTML = '';
@@ -760,263 +565,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Skip typing animation for now to avoid overriding existing content
 // document.addEventListener('DOMContentLoaded', initTypingEffect);
-
-This guide ensures quick and effective troubleshooting for Clan Mode!`,
-
-  treehouse: `### **Psycho Hatchers Treehouse Mode Troubleshooting Guide**
-
-This guide provides steps to resolve issues with the **Treehouse Mode** macro. Follow the outlined solutions for quick troubleshooting.
-
----
-
-### **Common Issues**
-
-**1. Scaling is not set to 100%**
-   - Ask: *"Is your display scaling set to 100%?"*
-   - Fix: Adjust scaling to 100% in your PC's Display Settings (Settings > Display > Scale and Layout).
-
-**2. Roblox isn't in windowed mode**
-   - Ask: *"Is Roblox in fullscreen mode?"*
-   - Fix: Switch to **Windowed Mode** in Roblox by pressing \`Esc\`, opening Settings, and selecting **Windowed** under Display Mode.
-
-**3. UI of the macro overlaps Roblox**
-   - Ask: *"Is the macro interface overlapping your Roblox screen?"*
-   - Fix: Adjust the macro's window size or reposition it to avoid overlap with the Roblox game interface.
-
-**4. Using a shiny hoverboard**
-   - Ask: *"Are you using a shiny hoverboard?"*
-   - Fix: Switch to a basic hoverboard or dismount entirely. Shiny hoverboards can interfere with macro functionality.
-
-**5. Not in World 1**
-   - Ask: *"Are you in World 1?"*
-   - Fix: Navigate to **World 1**, as Treehouse Mode works only in this world.
-
-**6. Not using the web browser version of Roblox**
-   - Ask: *"Are you using the web browser version of Roblox?"*
-   - Fix: Close the Roblox app and use the browser version instead.
-
----
-
-### **Uncommon Issues**
-
-**1. OCR Fails**
-   - Description: The OCR (Optical Character Recognition) function of the macro might fail to detect on-screen elements correctly.
-   - Fix: Ping **Waktool** or **Reversals** to debug the OCR setup.
-
-**2. Big Games bugs causing zones after Zone 1 not to load**
-   - Description: Sometimes, Big Games servers may bug out, failing to show zones beyond Zone 1.
-   - Fix: If this happens, ping **Waktool** or **Reversals** for assistance.
-
----
-
-### **Escalation Process**
-- If **common issues** are resolved and the macro is still not working:
-  - For **OCR failures** or **Big Games bugs**, ping **Waktool** or **Reversals** for further support.
-
----
-
-### **Checklist for Common Issues**
-- [ ] Scaling is set to 100%.
-- [ ] Roblox is in windowed mode.
-- [ ] Macro UI is not overlapping Roblox.
-- [ ] Not using a shiny hoverboard.
-- [ ] Player is in World 1.
-- [ ] The web browser version of Roblox is in use.
-
-### **Checklist for Uncommon Issues**
-- [ ] OCR is functioning correctly.
-- [ ] Zones beyond Zone 1 are visible.
-
-By following this guide, most issues with Treehouse Mode can be resolved. Escalate only when necessary!`,
-
-  fishing: `### **Psycho Hatchers Deep Fishing Mode Troubleshooting Guide**
-
-This guide will help you identify and resolve common and uncommon issues related to the Psycho Hatchers Deep Fishing Mode. Follow the steps carefully to get the mode functioning properly.
-
----
-
-### **Common Issues**
-
-**1. Roblox graphics not set to level 6 or higher**
-   - Ask: *"Are your Roblox graphics set to level 6 or higher?"*
-   - Fix: Go to Roblox settings (in-game), then navigate to the **Graphics** tab. Set the graphics quality to level 6 or higher.
-
-**2. Not in the fishing zone**
-   - Ask: *"Are you in the correct fishing zone?"*
-   - Fix: Ensure you are in the **Advanced Fishing Zone** and not in the normal fishing zone.
-
-**3. Camera isn't overhead and max zoomed out**
-   - Ask: *"Is your camera positioned overhead and zoomed out to the maximum?"*
-   - Fix: Adjust the camera by using the \`Scroll Wheel\` to zoom out and move it directly overhead using the mouse or keyboard controls.
-
-**4. Scaling is not set to 100%**
-   - Ask: *"Is your display scaling set to 100%?"*
-   - Fix: Set scaling to 100% in your PC's Display Settings (Settings > Display > Scale and Layout).
-
-**5. Roblox isn't windowed**
-   - Ask: *"Is Roblox running in windowed mode?"*
-   - Fix: Make sure Roblox is not in fullscreen mode. Press \`Esc\`, go to Settings, and set the display mode to **Windowed**.
-
----
-
-### **Uncommon Issues**
-
-**1. Mastery-related bugs**
-   - Ask: *"Are you experiencing any temporary bugs or issues related to Mastery while fishing?"*
-   - Fix: This issue can sometimes occur due to the mastery system. If this happens, simply wait for the temporary bug to resolve itself, or try restarting Roblox.
-
-**2. Trying to use the mode in the normal fishing zone**
-   - Ask: *"Are you trying to use Deep Fishing Mode in the normal fishing zone?"*
-   - Fix: Ensure that you're in the **Advanced Fishing Zone**. Deep Fishing Mode will only work in that specific zone.
-
----
-
-### **Escalation Process**
-
-1. If all else fails, and the issue persists:
-   - Ping **Reversals** for a deeper dive into the problem, and they'll assist in resolving it.
-
----
-
-### **Checklist for Common Issues**
-- [ ] Roblox graphics set to level 6 or higher.
-- [ ] You're in the **Advanced Fishing Zone**.
-- [ ] Camera is overhead and zoomed out to max.
-- [ ] Display scaling is at 100%.
-- [ ] Roblox is in windowed mode.
-
-Follow this checklist to ensure the troubleshooting process is thorough and effective!`,
-};
-
-// Handle Guide Display with improved reliability
-document.addEventListener("DOMContentLoaded", function() {
-  const guideButtons = document.querySelectorAll(".toggle-guide");
-  
-  // First, make sure all guide contents are properly initialized
-  guideButtons.forEach(button => {
-    const guideType = button.getAttribute("data-guide");
-    const contentElement = document.getElementById(`${guideType}-content`);
-    
-    if (!contentElement) {
-      console.error(`Guide content element for ${guideType} not found!`);
-      return;
-    }
-    
-    // Initialize all content areas as hidden
-    contentElement.style.display = "none";
-    contentElement.classList.remove("active");
-    button.textContent = "View Guide";
-  });
-  
-  // Add click handlers with improved stability
-  guideButtons.forEach(button => {
-    button.addEventListener("click", function() {
-      const guideType = this.getAttribute("data-guide");
-      const contentElement = document.getElementById(`${guideType}-content`);
-      
-      if (!contentElement) {
-        console.error(`Guide content element for ${guideType} not found!`);
-        return;
-      }
-      
-      // Toggle the guide visibility
-      if (contentElement.classList.contains("active")) {
-        // Hide the guide
-        contentElement.style.maxHeight = "0";
-        setTimeout(() => {
-          contentElement.style.display = "none";
-          contentElement.classList.remove("active");
-          this.textContent = "View Guide";
-        }, 300);
-      } else {
-        // Show the guide - pre-render the content first
-        const markdownContent = guideContents[guideType];
-        
-        if (!markdownContent) {
-          contentElement.innerHTML = "<p>Guide content not available.</p>";
-        } else {
-          // Use the improved HTML converter
-          contentElement.innerHTML = convertMarkdownToHTML(markdownContent);
-        }
-        
-        // Make visible with animation
-        contentElement.style.display = "block";
-        // Trigger reflow
-        contentElement.offsetHeight;
-        contentElement.classList.add("active");
-        contentElement.style.maxHeight = "2000px"; // Large enough for content
-        this.textContent = "Hide Guide";
-        
-        // Log success for debugging
-        console.log(`Guide ${guideType} displayed successfully`);
-        
-        // Scroll into view with smooth behavior
-        setTimeout(() => {
-          contentElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 100);
-      }
-    });
-  });
-});
-
-// Improved Markdown to HTML converter with better handling
-function convertMarkdownToHTML(markdown) {
-  if (!markdown || typeof markdown !== 'string') {
-    console.error('Invalid markdown content:', markdown);
-    return '<p>Error: Could not load guide content.</p>';
-  }
-  
-  // Create a working copy of the markdown
-  let html = markdown.trim();
-
-  // Process in order of specificity to avoid nested replacements
-  
-  // Headers (specific to asterisks first)
-  html = html.replace(/### \*\*(.*?)\*\*/g, "<h3>$1</h3>");
-  html = html.replace(/### (.*?)$/gm, "<h3>$1</h3>");
-
-  // Bold text
-  html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-
-  // Italic text
-  html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
-
-  // Checkbox lists (must come before regular lists)
-  html = html.replace(/- \[ \] (.*?)$/gm, 
-    '<div class="checklist-item"><input type="checkbox"> $1</div>');
-
-  // Regular lists
-  html = html.replace(/- (.*?)$/gm, "<li>$1</li>");
-
-  // Handle paragraph breaks
-  html = html.replace(/\n\n/g, "</p><p>");
-
-  // Horizontal rules
-  html = html.replace(/---/g, "<hr>");
-
-  // Code blocks
-  html = html.replace(/`(.*?)`/g, "<code>$1</code>");
-
-  // Ensure proper HTML structure with paragraphs
-  html = "<div class='guide-content-inner'><p>" + html + "</p></div>";
-  
-  // Clean up any structural issues
-  html = html.replace(/<p>\s*<h3/g, "<h3");
-  html = html.replace(/<\/h3>\s*<\/p>/g, "</h3>");
-  html = html.replace(/<p>\s*<hr>\s*<\/p>/g, "<hr>");
-  
-  // Fix list formatting
-  html = html.replace(/<p>\s*<li>/g, "<ul><li>");
-  html = html.replace(/<\/li>\s*<\/p>/g, "</li></ul>");
-  html = html.replace(/<\/li>\s*<li>/g, "</li><li>");
-  
-  // Add debugging information
-  html += `<div class="guide-timestamp" style="font-size: 0.7rem; margin-top: 20px; color: #999;">
-    Guide loaded at: ${new Date().toLocaleString()}
-  </div>`;
-  
-  return html;
-}
 
 // Apply active class to current section in nav
 function setActiveNavLink() {
@@ -1126,7 +674,6 @@ function displaySavedSuggestions() {
     searchBox.className = 'suggestion-search';
     searchBox.innerHTML = `
       <input type="text" id="suggestion-search" placeholder="Search suggestions..." class="suggestion-search-input">
-      <button id="export-suggestions" class="btn btn-sm"><i class="fas fa-download"></i> Export All</button>
     `;
     
     statusDiv.innerHTML = ''; // Clear previous content
@@ -1204,14 +751,6 @@ function displaySavedSuggestions() {
           showNotification('Vote recorded!', 'success');
         });
       });
-      
-      // Add export functionality
-      const exportBtn = document.getElementById('export-suggestions');
-      if (exportBtn) {
-        exportBtn.addEventListener('click', function() {
-          exportAllSuggestions();
-        });
-      }
     } else {
       // No suggestions message
       const noSuggestions = document.createElement('div');
@@ -1223,13 +762,9 @@ function displaySavedSuggestions() {
       `;
       suggestionsContainer.appendChild(noSuggestions);
     }
-  }
-  
-  // Check deployment environment
-  const isNetlify = window.location.hostname.includes('netlify.app');
-  if (isNetlify) {
-    console.log('Running on Netlify deployment');
-    // Add Netlify-specific functionality if needed
+    
+    // Make the suggestions section visible
+    statusDiv.style.display = 'block';
   }
 }
 
