@@ -20,26 +20,36 @@ document.addEventListener('copy', function(e) {
 const logoPreview = document.getElementById('logo-preview');
 const footerLogo = document.getElementById('footer-logo');
 
+// Logo switcher functionality
+const logos = {
+  red: 'PsychoHatcher.png',
+  green: 'attached_assets/logogreen.png',
+  black: 'attached_assets/logoblack.png',
+  white: 'attached_assets/logowhite.png'
+};
+
 // Load static logo on page load
 window.addEventListener('DOMContentLoaded', () => {
   // Set static logo from project files
-  logoPreview.src = 'PsychoHatcher.png';
-  footerLogo.src = 'PsychoHatcher.png';
+  const currentLogo = localStorage.getItem('selectedLogo') || 'red';
+  switchLogo(currentLogo);
+  
+  // Replace upload button with logo switcher
+  const uploadBtn = document.querySelector('.upload-btn');
+  if (uploadBtn) {
+    uploadBtn.innerHTML = '<i class="fas fa-images"></i> Switch Logo';
+    uploadBtn.style.cursor = 'pointer';
+    uploadBtn.style.opacity = '1';
+    uploadBtn.title = 'Click to change logo style';
+    uploadBtn.onclick = function() {
+      showLogoSwitcher();
+    };
+  }
   
   // Disable logo upload functionality
   const logoUpload = document.getElementById('logo-upload');
   if (logoUpload) {
     logoUpload.disabled = true;
-    logoUpload.parentElement.classList.add('disabled');
-    logoUpload.parentElement.title = 'Logo uploads are disabled';
-  }
-  
-  // Hide upload button
-  const uploadBtn = document.querySelector('.upload-btn');
-  if (uploadBtn) {
-    uploadBtn.style.opacity = '0.5';
-    uploadBtn.style.cursor = 'not-allowed';
-    uploadBtn.innerHTML = '<i class="fas fa-lock"></i> Logo Locked';
   }
   
   // Initialize custom components
@@ -50,6 +60,75 @@ window.addEventListener('DOMContentLoaded', () => {
     showNotification('Welcome back to the Staff Portal!', 'info');
   }
 });
+
+// Function to switch logo throughout the site
+function switchLogo(style) {
+  const logoPreview = document.getElementById('logo-preview');
+  const footerLogo = document.getElementById('footer-logo');
+  const loginLogo = document.getElementById('login-logo-img');
+  
+  if (logos[style]) {
+    logoPreview.src = logos[style];
+    footerLogo.src = logos[style];
+    if (loginLogo) loginLogo.src = logos[style];
+    
+    localStorage.setItem('selectedLogo', style);
+    showNotification(`Logo style changed to ${style}`, 'success');
+  }
+}
+
+// Function to show logo switcher dialog
+function showLogoSwitcher() {
+  // Create logo switcher overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'logo-switcher-overlay';
+  
+  const switcher = document.createElement('div');
+  switcher.className = 'logo-switcher-container';
+  
+  // Add heading
+  const heading = document.createElement('h3');
+  heading.textContent = 'Choose Logo Style';
+  switcher.appendChild(heading);
+  
+  // Create logo options
+  const logoOptions = document.createElement('div');
+  logoOptions.className = 'logo-options';
+  
+  for (const [style, path] of Object.entries(logos)) {
+    const option = document.createElement('div');
+    option.className = 'logo-option';
+    
+    const img = document.createElement('img');
+    img.src = path;
+    img.alt = `${style} logo`;
+    
+    const label = document.createElement('span');
+    label.textContent = style.charAt(0).toUpperCase() + style.slice(1);
+    
+    option.appendChild(img);
+    option.appendChild(label);
+    
+    option.onclick = () => {
+      switchLogo(style);
+      document.body.removeChild(overlay);
+    };
+    
+    logoOptions.appendChild(option);
+  }
+  
+  switcher.appendChild(logoOptions);
+  
+  // Add close button
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'btn';
+  closeBtn.textContent = 'Close';
+  closeBtn.onclick = () => document.body.removeChild(overlay);
+  switcher.appendChild(closeBtn);
+  
+  overlay.appendChild(switcher);
+  document.body.appendChild(overlay);
+}
 
 // Notification System
 function showNotification(message, type = 'info') {
