@@ -605,6 +605,160 @@ This guide covers troubleshooting for the **Clan Mode Macro**, which is a tempor
 
 If all items in the checklist are resolved and the macro still fails, escalate by contacting **Reversals** for further assistance.
 
+
+// Add scroll animations to elements
+function initScrollAnimations() {
+  const animatedElements = document.querySelectorAll('.section-card, .guide-card, .info-box, h2, h3');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  });
+  
+  animatedElements.forEach(element => {
+    element.classList.add('animate-ready');
+    observer.observe(element);
+  });
+}
+
+// Initialize scroll animations
+document.addEventListener('DOMContentLoaded', function() {
+  initScrollAnimations();
+  
+  // Add dark mode toggle
+  const darkModeToggle = document.createElement('button');
+  darkModeToggle.className = 'dark-mode-toggle';
+  darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+  darkModeToggle.title = 'Toggle Dark Mode';
+  document.body.appendChild(darkModeToggle);
+  
+  darkModeToggle.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      darkModeToggle.title = 'Toggle Light Mode';
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      darkModeToggle.title = 'Toggle Dark Mode';
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+  
+  // Check for saved dark mode preference
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    darkModeToggle.title = 'Toggle Light Mode';
+  }
+});
+
+// Add typing animation to headers
+function initTypingEffect() {
+  const headers = document.querySelectorAll('h1, h2');
+  
+  headers.forEach((header, index) => {
+    const text = header.textContent;
+
+// Add scroll progress bar
+document.addEventListener('DOMContentLoaded', function() {
+  // Create progress bar
+  const progressBar = document.createElement('div');
+  progressBar.className = 'scroll-progress';
+  document.body.appendChild(progressBar);
+  
+  // Update progress bar width on scroll
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollProgress = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollProgress + '%';
+    
+    // Show back to top button when scrolled down
+    const backToTopBtn = document.querySelector('.back-to-top');
+    if (scrollTop > 300) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  });
+  
+  // Add back to top button
+  const backToTopBtn = document.createElement('button');
+  backToTopBtn.className = 'back-to-top';
+  backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  backToTopBtn.title = 'Back to top';
+  document.body.appendChild(backToTopBtn);
+  
+  // Scroll to top when button is clicked
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+});
+
+// Add interactive checklists
+document.addEventListener('DOMContentLoaded', function() {
+  const guide = document.querySelectorAll('.guide-content');
+  
+  guide.forEach(content => {
+    const checklistItems = content.querySelectorAll('.checklist-item input[type="checkbox"]');
+    
+    checklistItems.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const parentItem = this.closest('.checklist-item');
+        
+        if (this.checked) {
+          parentItem.style.textDecoration = 'line-through';
+          parentItem.style.opacity = '0.7';
+        } else {
+          parentItem.style.textDecoration = 'none';
+          parentItem.style.opacity = '1';
+        }
+        
+        // Count checked items
+        const guide = this.closest('.guide-content');
+        const totalItems = guide.querySelectorAll('.checklist-item').length;
+        const checkedItems = guide.querySelectorAll('.checklist-item input[type="checkbox"]:checked').length;
+        
+        // If all items are checked, show success notification
+        if (checkedItems === totalItems) {
+          showNotification('All items checked! Issue should be resolved.', 'success');
+        }
+      });
+    });
+  });
+});
+
+    header.innerHTML = '';
+    header.style.visibility = 'visible';
+    
+    setTimeout(() => {
+      let i = 0;
+      const typeInterval = setInterval(() => {
+        if (i < text.length) {
+          header.innerHTML += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(typeInterval);
+        }
+      }, 50);
+    }, index * 300);
+  });
+}
+
+// Skip typing animation for now to avoid overriding existing content
+// document.addEventListener('DOMContentLoaded', initTypingEffect);
+
 This guide ensures quick and effective troubleshooting for Clan Mode!`,
 
   treehouse: `### **Psycho Hatchers Treehouse Mode Troubleshooting Guide**
