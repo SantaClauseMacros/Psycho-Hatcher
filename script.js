@@ -20,12 +20,62 @@ document.addEventListener('copy', function(e) {
 const logoPreview = document.getElementById('logo-preview');
 const footerLogo = document.getElementById('footer-logo');
 
-// Logo switcher functionality
+// Logo switcher functionality with color themes
 const logos = {
-  red: 'PsychoHatcher.png',
-  green: 'attached_assets/logogreen.png',
-  black: 'attached_assets/logoblack.png',
-  white: 'attached_assets/logowhite.png'
+  red: {
+    path: 'PsychoHatcher.png',
+    colors: {
+      primaryColor: '#ED1F27',
+      primaryLight: '#ff5252',
+      primaryDark: '#b71c1c',
+      secondaryColor: '#f44336'
+    }
+  },
+  brightGreen: {
+    path: 'attached_assets/PsychoHatcherGreen.png',
+    colors: {
+      primaryColor: '#B4D233',
+      primaryLight: '#CDDE68',
+      primaryDark: '#94AE21',
+      secondaryColor: '#C5E436'
+    }
+  },
+  green: {
+    path: 'attached_assets/logogreen.png',
+    colors: {
+      primaryColor: '#4CAF50',
+      primaryLight: '#81C784',
+      primaryDark: '#388E3C',
+      secondaryColor: '#66BB6A'
+    }
+  },
+  black: {
+    path: 'attached_assets/logoblack.png',
+    colors: {
+      primaryColor: '#212121',
+      primaryLight: '#484848',
+      primaryDark: '#000000',
+      secondaryColor: '#424242'
+    }
+  },
+  white: {
+    path: 'attached_assets/logowhite.png',
+    colors: {
+      primaryColor: '#607D8B',
+      primaryLight: '#90A4AE',
+      primaryDark: '#455A64',
+      secondaryColor: '#78909C'
+    }
+  },
+  pureWhite: {
+    path: 'attached_assets/PsychoHatcherWhite.png',
+    colors: {
+      primaryColor: '#212121',
+      primaryLight: '#484848',
+      primaryDark: '#000000',
+      secondaryColor: '#FFFFFF'
+    }
+  }
 };
 
 // Load static logo on page load
@@ -61,19 +111,58 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Function to switch logo throughout the site
+// Function to switch logo throughout the site and update color theme
 function switchLogo(style) {
   const logoPreview = document.getElementById('logo-preview');
   const footerLogo = document.getElementById('footer-logo');
   const loginLogo = document.getElementById('login-logo-img');
   
   if (logos[style]) {
-    logoPreview.src = logos[style];
-    footerLogo.src = logos[style];
-    if (loginLogo) loginLogo.src = logos[style];
+    // Update logos
+    logoPreview.src = logos[style].path;
+    footerLogo.src = logos[style].path;
+    if (loginLogo) loginLogo.src = logos[style].path;
+    
+    // Apply color theme
+    applyColorTheme(logos[style].colors);
     
     localStorage.setItem('selectedLogo', style);
-    showNotification(`Logo style changed to ${style}`, 'success');
+    showNotification(`Theme changed to ${style}`, 'success');
+  }
+}
+
+// Function to apply color theme to CSS variables
+function applyColorTheme(colors) {
+  const root = document.documentElement;
+  
+  // Update CSS variables
+  root.style.setProperty('--primary-color', colors.primaryColor);
+  root.style.setProperty('--primary-light', colors.primaryLight);
+  root.style.setProperty('--primary-dark', colors.primaryDark);
+  root.style.setProperty('--secondary-color', colors.secondaryColor);
+  
+  // Update header background
+  const header = document.querySelector('header');
+  if (header) {
+    header.style.background = `linear-gradient(135deg, ${colors.primaryColor}, ${colors.primaryDark})`;
+  }
+  
+  // Update navigation background
+  const nav = document.querySelector('nav');
+  if (nav) {
+    nav.style.backgroundColor = colors.primaryLight;
+  }
+  
+  // Update footer background
+  const footer = document.querySelector('footer');
+  if (footer) {
+    footer.style.backgroundColor = colors.primaryDark;
+  }
+  
+  // Update login overlay if present
+  const loginOverlay = document.querySelector('.login-overlay');
+  if (loginOverlay) {
+    loginOverlay.style.background = `linear-gradient(135deg, ${colors.primaryDark}, ${colors.primaryColor})`;
   }
 }
 
@@ -88,33 +177,86 @@ function showLogoSwitcher() {
   
   // Add heading
   const heading = document.createElement('h3');
-  heading.textContent = 'Choose Logo Style';
+  heading.textContent = 'Choose Logo & Theme Style';
   switcher.appendChild(heading);
   
-  // Create logo options
+  const description = document.createElement('p');
+  description.textContent = 'Select an option to change both the logo and color scheme';
+  description.style.marginBottom = '15px';
+  description.style.color = '#666';
+  switcher.appendChild(description);
+  
+  // Create logo options - limit to only 3 options
   const logoOptions = document.createElement('div');
   logoOptions.className = 'logo-options';
   
-  for (const [style, path] of Object.entries(logos)) {
-    const option = document.createElement('div');
-    option.className = 'logo-option';
-    
-    const img = document.createElement('img');
-    img.src = path;
-    img.alt = `${style} logo`;
-    
-    const label = document.createElement('span');
-    label.textContent = style.charAt(0).toUpperCase() + style.slice(1);
-    
-    option.appendChild(img);
-    option.appendChild(label);
-    
-    option.onclick = () => {
-      switchLogo(style);
-      document.body.removeChild(overlay);
-    };
-    
-    logoOptions.appendChild(option);
+  // Only show these three options
+  const displayStyles = ['red', 'black', 'pureWhite'];
+  
+  for (const style of displayStyles) {
+    if (logos[style]) {
+      const option = document.createElement('div');
+      option.className = 'logo-option';
+      
+      // Create preview of the theme colors
+      const colorPreview = document.createElement('div');
+      colorPreview.className = 'color-preview';
+      colorPreview.style.display = 'flex';
+      colorPreview.style.marginTop = '10px';
+      
+      // Add color swatches
+      const colors = [
+        logos[style].colors.primaryColor,
+        logos[style].colors.primaryLight,
+        logos[style].colors.primaryDark,
+        logos[style].colors.secondaryColor
+      ];
+      
+      colors.forEach(color => {
+        const swatch = document.createElement('div');
+        swatch.style.width = '20px';
+        swatch.style.height = '20px';
+        swatch.style.backgroundColor = color;
+        swatch.style.borderRadius = '50%';
+        swatch.style.margin = '0 5px';
+        swatch.style.border = '1px solid #ddd';
+        colorPreview.appendChild(swatch);
+      });
+      
+      const img = document.createElement('img');
+      img.src = logos[style].path;
+      img.alt = `${style} logo`;
+      
+      const label = document.createElement('span');
+      label.textContent = style.charAt(0).toUpperCase() + style.slice(1) + ' Theme';
+      label.style.fontSize = '14px';
+      label.style.fontWeight = 'bold';
+      
+      option.appendChild(img);
+      option.appendChild(label);
+      option.appendChild(colorPreview);
+      
+      // Add hover effect
+      option.style.transition = 'all 0.3s ease';
+      
+      // Apply theme preview on hover
+      option.addEventListener('mouseenter', () => {
+        option.style.backgroundColor = logos[style].colors.primaryLight + '20'; // 20% opacity
+        option.style.borderColor = logos[style].colors.primaryColor;
+      });
+      
+      option.addEventListener('mouseleave', () => {
+        option.style.backgroundColor = '';
+        option.style.borderColor = 'transparent';
+      });
+      
+      option.onclick = () => {
+        switchLogo(style);
+        document.body.removeChild(overlay);
+      };
+      
+      logoOptions.appendChild(option);
+    }
   }
   
   switcher.appendChild(logoOptions);
@@ -124,6 +266,7 @@ function showLogoSwitcher() {
   closeBtn.className = 'btn';
   closeBtn.textContent = 'Close';
   closeBtn.onclick = () => document.body.removeChild(overlay);
+  closeBtn.style.marginTop = '20px';
   switcher.appendChild(closeBtn);
   
   overlay.appendChild(switcher);
