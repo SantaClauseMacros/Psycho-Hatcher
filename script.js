@@ -916,7 +916,7 @@ guideButtons.forEach((button) => {
     }
   });
 
-  // Trigger click once to initialize content
+  // Pre-load content but don't auto-toggle
   const guideType = button.getAttribute("data-guide");
   const contentElement = document.getElementById(`${guideType}-content`);
 
