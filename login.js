@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
       sessionStorage.removeItem('staffLoggedIn');
+      sessionStorage.removeItem('loginAttempts');
       location.reload();
     });
   }
@@ -47,7 +48,7 @@ function createLoginOverlay() {
   logoContainer.className = 'login-logo';
   const logoImg = document.createElement('img');
   logoImg.id = 'login-logo-img';
-  logoImg.src = document.getElementById('logo-preview').src;
+  logoImg.src = 'PsychoHatcher.png'; // Static image from project files
   logoImg.alt = 'Psycho Hatcher Logo';
   logoImg.draggable = false; // Prevent image dragging
   logoContainer.appendChild(logoImg);
@@ -94,11 +95,17 @@ function createLoginOverlay() {
   errorMessage.className = 'login-error';
   errorMessage.id = 'login-error';
   
-  // Create attempts counter
+  // Create attempts counter with max attempts set to 3
   const attemptsInfo = document.createElement('div');
   attemptsInfo.className = 'attempts-info';
   attemptsInfo.id = 'attempts-info';
-  attemptsInfo.textContent = 'Unlimited attempts remaining';
+  
+  // Get current attempts
+  const currentAttempts = parseInt(sessionStorage.getItem('loginAttempts') || '0');
+  const maxAttempts = 3;
+  const remainingAttempts = maxAttempts - currentAttempts;
+  
+  attemptsInfo.textContent = `${remainingAttempts} attempt${remainingAttempts !== 1 ? 's' : ''} remaining`;
   
   // Append elements to container
   loginContainer.appendChild(securityNotice);
@@ -122,6 +129,13 @@ function createLoginOverlay() {
     }
   });
   
+  // Check if already reached max attempts
+  if (currentAttempts >= maxAttempts) {
+    passwordInput.disabled = true;
+    loginButton.disabled = true;
+    errorMessage.textContent = 'Maximum attempts reached. Please reload the page.';
+  }
+  
   // Additional security - prevent F12, Ctrl+Shift+I, Ctrl+Shift+J
   document.addEventListener('keydown', function(e) {
     if (e.key === 'F12' || 
@@ -136,19 +150,25 @@ function validateLogin() {
   const errorElement = document.getElementById('login-error');
   const attemptsInfo = document.getElementById('attempts-info');
   
+  // Set maximum attempts
+  const maxAttempts = 3;
+  
   // Get attempt count from session storage
   let attemptCount = parseInt(sessionStorage.getItem('loginAttempts') || '0');
   attemptCount++;
   sessionStorage.setItem('loginAttempts', attemptCount.toString());
   
+  // Calculate remaining attempts
+  const remainingAttempts = maxAttempts - attemptCount;
+  
   // Update attempts info
-  attemptsInfo.textContent = `Attempt ${attemptCount} of unlimited`;
+  attemptsInfo.textContent = `${remainingAttempts} attempt${remainingAttempts !== 1 ? 's' : ''} remaining`;
   
   // Add a subtle delay for security
   setTimeout(() => {
-    // Simple validation - in a real application, use a more secure method
-    // The password is 'staffaccess' - this is just for demonstration
-    if (passwordInput.value === 'staffaccess') {
+    // Complex password validation
+    // Using a very random password as requested
+    if (passwordInput.value === 'X7@p#R2q!L9zK&tM5*Dv$F8gB3') {
       // Store login state and reset attempts
       sessionStorage.setItem('staffLoggedIn', 'true');
       sessionStorage.removeItem('loginAttempts');
@@ -175,17 +195,11 @@ function validateLogin() {
       const container = document.querySelector('.login-container');
       container.classList.add('shake');
       
-      // Add a brief "lockout" effect for too many attempts
-      if (attemptCount >= 3) {
+      // Permanently disable login after max attempts
+      if (attemptCount >= maxAttempts) {
         passwordInput.disabled = true;
         document.querySelector('.btn').disabled = true;
-        errorElement.textContent = 'Too many attempts. Please wait...';
-        
-        setTimeout(() => {
-          passwordInput.disabled = false;
-          document.querySelector('.btn').disabled = false;
-          errorElement.textContent = 'You may try again.';
-        }, 3000);
+        errorElement.textContent = 'Maximum attempts reached. Please reload the page.';
       }
       
       // Remove shake animation after it completes
