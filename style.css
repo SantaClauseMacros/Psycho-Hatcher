@@ -1762,7 +1762,7 @@
       display: block;
       width: 100%;
       background-color: var(--primary-dark);
-      color: var(--text-light);
+      color: black;
       border: none;
       padding: 0.8rem;
       font-size: 1.1rem;
